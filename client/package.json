@@ -19,7 +19,7 @@
     "tsc": "tsc --noEmit",
     "lint": "tslint './src/**/*.ts*' --format stylish --project . --force",
     "dev": "webpack-dev-server ---open --config webpack/development.js",
-    "test": "jest --watch --coverage --config webpack/jest.json",
+    "test": "jest --watch --coverage --config webpack/jest.json"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
