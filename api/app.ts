@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const app: Application = express();
-dotenv.config();
+dotenv.config({ path: './.env' });
 
 mongoose.connect(process.env.MONGO_DB_URI, {
   useNewUrlParser: true,
