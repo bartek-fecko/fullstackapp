@@ -8,7 +8,7 @@ router.get('/', (req: Request, res: Response) => {
    const posts = Post
       .find()
       .then(() => res.status(200).json({ posts }))
-      .catch((err) => console.log('HANDLING:' + err));
+      .catch((err) => console.log(`HANDLING:${err}`));
 });
 
 router.post('/', postValidator, checkErrors, (req: Request, res: Response) => {
@@ -21,7 +21,7 @@ router.post('/', postValidator, checkErrors, (req: Request, res: Response) => {
             post: result,
          });
       })
-      .catch((err) => console.log('HANDLING:' + err));
+      .catch((err) => console.log(`HANDLING:${err}`));
 });
 
 export { router };
