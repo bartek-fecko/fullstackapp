@@ -10,6 +10,7 @@
     "dev:server": "ts-node-dev --respawn --transpileOnly ./api/app.ts",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:front\"",
     "tsc": "tsc",
+    "start": "tsc && node ./build/app.js",
     "clean": "rimraf ./build",
     "build": "tsc && node ./build/app.js",
     "heroku-postbuild": "cd client && npm install && npm run build",

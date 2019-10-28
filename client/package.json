@@ -20,7 +20,6 @@
     "lint": "tslint './src/**/*.ts*' --format stylish --project . --force",
     "dev": "webpack-dev-server ---open --config webpack/development.js",
     "test": "jest --watch --coverage --config webpack/jest.json",
-    "heroku-prebuild": "npm install --dev"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
