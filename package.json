@@ -1,6 +1,9 @@
 {
   "name": "v",
   "version": "0.0.0",
+  "engines": {
+    "node": "8.11.2"
+  },
   "private": true,
   "scripts": {
     "dev:front": "cd client && npm run dev",
@@ -9,7 +12,8 @@
     "tsc": "tsc",
     "clean": "rimraf ./build",
     "build": "tsc && node ./build/app.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "heroku-prebuild": "npm install --dev"
   },
   "dependencies": {
     "@types/express": "^4.17.1",
