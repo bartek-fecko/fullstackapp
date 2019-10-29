@@ -2,7 +2,7 @@ import express, { Application, Response } from 'express';
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-var cors = require('cors');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const app: Application = express();
