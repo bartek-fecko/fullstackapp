@@ -22,14 +22,13 @@ export const isUserSignIn = expressJwt({
    useProperty: 'auth',
 });
 
-export const isUserAuthorized = ((req: C.IsUserAuthorizedRequest, res: Response, next: NextFunction) => {
-   if (
-      req.profile && req.auth && (
-         req.profile._id && req.auth._id
-      )
-   ) {
-      return res.status(403).json({
-         error: htttpErrors.error403,
-      });
-   }
-});
+// export const isUserAuthorized = ((req: C.IsUserAuthorizedRequest, res: Response, next: NextFunction) => {
+//    if (
+//       !(req.profile && req.auth && req.profile._id === req.auth._id)
+//    ) {
+//       return res.status(403).json({
+//          error: htttpErrors.error403,
+//       });
+//    }
+//    next();
+// });

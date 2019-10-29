@@ -3,7 +3,7 @@ import { htttpErrors } from '../../config/constants/htttpStatuses';
 import Post from '../../db/models/post/post';
 import { checkErrors, postRequestValidator } from '../../utils/validation/post/postRequestValidator';
 import { protectRoutes } from '../../utils/validation/protectedRoutes';
-import { isUserAuthorized } from '../users/userAuthHelpers';
+import { isUserSignIn } from '../users/userAuthHelpers';
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.get('/', protectRoutes, async (req: Request, res: Response) => {
 
 router.post(
    '/create',
-   isUserAuthorized,
+   isUserSignIn,
    postRequestValidator,
    checkErrors,
    async (req: Request, res: Response) => {
