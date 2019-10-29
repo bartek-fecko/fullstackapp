@@ -1,4 +1,4 @@
-import { Copyright } from '#/modules/Copyright/Copyright';
+import Copyright from '#/modules/Copyright/Copyright';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -16,11 +16,12 @@ import { Field, Form } from 'react-final-form';
 import * as C from './constants';
 import { validate } from './validate';
 
-const onSubmit = async (values) => {
-   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const onSubmit = async values => {
+   console.log('dsafa')
+   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
    await sleep(300);
-   console.log(values);
-};
+
+ };
 
 const SignUp: React.FC = () => {
    const classes = C.useStyles({});
@@ -29,9 +30,8 @@ const SignUp: React.FC = () => {
       <Form
          onSubmit={onSubmit}
          validate={validate}
-         initialValues={{}}
          render={({ handleSubmit, submitting, pristine }) => (
-            <form onSubmit={handleSubmit} noValidate className={classes.form}>
+            <form onSubmit={handleSubmit}  className={classes.form}>
                <Container component="main" maxWidth="xs">
                   <CssBaseline />
                   <div className={classes.paper}>
@@ -69,7 +69,6 @@ const SignUp: React.FC = () => {
                      />
                      <Button
                         disabled={submitting || pristine}
-                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
