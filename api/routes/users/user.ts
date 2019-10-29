@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { htttpErrors } from '../../config/constants/htttpStatuses';
-import User from '../../db/models/user';
+import { IUser } from '../../db/models/user/constants';
+import User from '../../db/models/user/user';
 import { userRequestValidator, checkErrors } from '../../utils/validation/user/userAuthValidator';
 import * as C from './constants';
 require('dotenv').config();
@@ -10,15 +11,12 @@ const router = express.Router();
 
 export interface UserAuthRequest extends Request {
    body: {
-      _id?: string;
-      name?: string;
-      email?: string;
-      password?: string;
+      email: string;
+      password: string;
    };
-   authenticate?: (authenticate: string) => boolean;
 }
 
-router.post('/signup', userRequestValidator, checkErrors, async (req: UserAuthRequest, res: Response) => {
+router.post('/signup', userRequestValidator, checkErrors, async (req: Request, res: Response) => {
    const isUserInDatabase = await User.find({ email: req.body.email });
 
    if (isUserInDatabase && isUserInDatabase.length) {
@@ -33,10 +31,11 @@ router.post('/signup', userRequestValidator, checkErrors, async (req: UserAuthRe
    });
 });
 
-router.get('/signin', async (req: UserAuthRequest, res: Response) => {
-   const { _id, name, email, password } = req.body;
+router.post('/signin', async (req: UserAuthRequest, res: Response) => {
+   const { email, password } = req.body;
    try {
-      const user = await User.findOne({ email });
+      const user: IUser = await User.findOne({ email });
+      const { _id, name, passwordHash } = user;
 
       if (!user) {
          return res.status(401).json({
@@ -44,11 +43,20 @@ router.get('/signin', async (req: UserAuthRequest, res: Response) => {
          });
       }
 
-      if (password && !user.authenticae(password)) {
+      if (passwordHash && !user.authenticate(password)) {
          return res.status(401).json({
-            error: ''
+            error: C.UserAuthErros.DoesntMatch,
          });
       }
+      const token = jwt.sign({
+         _id: user._id,
+      }, process.env.JWT_SECRET);
+
+      res.cookie(C.TokenID, token, {
+         expires: new Date(Number(new Date()) + 24 * 60 * 60 * 1000),
+      });
+
+      return res.json({ token, user: { _id, email, name } });
 
    } catch (err) {
       return res.status(500).json({
@@ -56,6 +64,11 @@ router.get('/signin', async (req: UserAuthRequest, res: Response) => {
       });
    }
 
+});
+
+router.get('/logout', async (req: Request, res: Response) => {
+   res.clearCookie(C.TokenID);
+   return res.json({ message: C.UserAuthConfirms.userLogout });
 });
 
 export { router };

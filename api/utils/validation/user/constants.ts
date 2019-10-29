@@ -1,6 +1,6 @@
 export enum Name  {
    EmptyError = 'Please give a name.',
-   InvalidLengthError = 'Title must be between 2 and 50 characters length.',
+   InvalidLengthError = 'Name must be between 2 and 50 characters length.',
    MaxLength = 50,
    MinLength = 2,
 }

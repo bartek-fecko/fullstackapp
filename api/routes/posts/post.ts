@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { htttpErrors } from '../../config/constants/htttpStatuses';
-import Post from '../../db/models/post';
+import Post from '../../db/models/post/post';
 import { checkErrors, postRequestValidator } from '../../utils/validation/post/postRequestValidator';
 
 const router = express.Router();
