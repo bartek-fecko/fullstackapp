@@ -17,6 +17,7 @@ mongoose.connect(process.env.MONGO_DB_URI, {
 mongoose.connection.on('error', (err: Error) => console.log('db error:' + err));
 
 const postRoutes = require('./routes/posts/post').router;
+const userRoutes = require('./routes/users/user').router;
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 
 app.use('/posts', postRoutes);
+app.use('/users', userRoutes);
 
 const port = process.env.PORT;
 app.listen(port, () => {

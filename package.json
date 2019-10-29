@@ -26,10 +26,12 @@
     "express-validator": "^6.2.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.7",
     "morgan": "~1.9.1",
     "rimraf": "^2.6.3",
-    "ts-node-dev": "^1.0.0-pre.43"
+    "ts-node-dev": "^1.0.0-pre.43",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "concurrently": "^4.1.1",

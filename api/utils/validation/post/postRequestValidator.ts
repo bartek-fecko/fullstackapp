@@ -1,27 +1,27 @@
 const { check, validationResult } = require('express-validator');
 import { NextFunction, Request, Response } from 'express';
-import * as PostConstants from '../constants/post';
+import * as PostConstants from './constants';
 
-export const postValidator = [
+export const postRequestValidator = [
    check('title')
       .isLength({
-         min: PostConstants.title.minLength,
+         min: PostConstants.Title.MinLength,
       })
-      .withMessage(PostConstants.title.invalidLengthError)
+      .withMessage(PostConstants.Title.InvalidLengthError)
       .isLength({
-         max: PostConstants.title.maxLength,
+         max: PostConstants.Title.MaxLength,
       })
-      .withMessage(PostConstants.title.invalidLengthError)
+      .withMessage(PostConstants.Title.InvalidLengthError)
    ,
    check('body')
       .isLength({
-         min: PostConstants.body.minLength,
+         min: PostConstants.Body.MinLength,
       })
-      .withMessage(PostConstants.body.invalidLengthError)
+      .withMessage(PostConstants.Body.InvalidLengthError)
       .isLength({
-         max: PostConstants.body.maxLength,
+         max: PostConstants.Body.MaxLength,
       })
-      .withMessage(PostConstants.body.invalidLengthError),
+      .withMessage(PostConstants.Body.InvalidLengthError),
 ];
 
 export const checkErrors = (req: Request, res: Response, next: NextFunction) => {
