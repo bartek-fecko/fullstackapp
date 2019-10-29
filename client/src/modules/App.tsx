@@ -1,6 +1,6 @@
 import { RootRouter } from '#/modules/RootRouting/RootRouting';
-import * as React from 'react';
 import axios from 'axios';
+import * as React from 'react';
 
 export const App: React.FC = () => {
    React.useEffect(() =>{
