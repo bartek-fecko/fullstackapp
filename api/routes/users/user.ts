@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express';
+import { expressJwt } from 'express-jwt';
+import express, { Request, Response ,NextFunction} from 'express';
 import jwt from 'jsonwebtoken';
 import { htttpErrors } from '../../config/constants/htttpStatuses';
 import { IUser } from '../../db/models/user/constants';
@@ -8,13 +9,6 @@ import * as C from './constants';
 require('dotenv').config();
 
 const router = express.Router();
-
-export interface UserAuthRequest extends Request {
-   body: {
-      email: string;
-      password: string;
-   };
-}
 
 router.post('/signup', userRequestValidator, checkErrors, async (req: Request, res: Response) => {
    const isUserInDatabase = await User.find({ email: req.body.email });
@@ -31,7 +25,7 @@ router.post('/signup', userRequestValidator, checkErrors, async (req: Request, r
    });
 });
 
-router.post('/signin', async (req: UserAuthRequest, res: Response) => {
+router.post('/signin', async (req: C.IsUserAuthorizedRequest, res: Response) => {
    const { email, password } = req.body;
    try {
       const user: IUser = await User.findOne({ email });
@@ -60,7 +54,7 @@ router.post('/signin', async (req: UserAuthRequest, res: Response) => {
 
    } catch (err) {
       return res.status(500).json({
-         error: htttpErrors.errror500,
+         error: htttpErrors.error500,
       });
    }
 

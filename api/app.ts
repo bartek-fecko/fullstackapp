@@ -18,6 +18,7 @@ mongoose.connection.on('error', (err: Error) => console.log('db error:' + err));
 
 const postRoutes = require('./routes/posts/post').router;
 const userRoutes = require('./routes/users/user').router;
+const errorRoutes = require('./routes/errors/error').router;
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -26,6 +27,7 @@ app.use(morgan('dev'));
 
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
+app.use(errorRoutes);
 
 const port = process.env.PORT;
 app.listen(port, () => {
