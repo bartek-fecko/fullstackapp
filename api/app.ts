@@ -1,8 +1,10 @@
-import express, { Application, request } from 'express';
+import express, { Application, Response } from 'express';
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+var cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 const app: Application = express();
 dotenv.config({ path: './.env' });
 
@@ -20,14 +22,20 @@ const postRoutes = require('./routes/posts/post').router;
 const userRoutes = require('./routes/users/user').router;
 const errorRoutes = require('./routes/errors/error').notAuthorizedErrorRoute;
 
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
-app.use('/posts', postRoutes);
-app.use('/users', userRoutes);
-app.use(errorRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api', errorRoutes);
+
+app.get('/*', (req, res: Response) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
 const port = process.env.PORT;
 app.listen(port, () => {

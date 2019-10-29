@@ -6,6 +6,10 @@ module.exports = {
   entry: {
     app: resolve(__dirname, '../src/index.tsx')
   },
+  devServer: {
+    historyApiFallback: true,
+    proxy: { '/api': 'http://localhost:3000' }
+  },
   resolve: {
     alias: {
       "#": resolve(__dirname, '../src/')
@@ -59,4 +63,4 @@ module.exports = {
   performance: {
     hints: false,
   },
-};
+}

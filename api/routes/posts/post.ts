@@ -7,7 +7,7 @@ import { isUserSignIn } from '../users/userAuthHelpers';
 
 const router = express.Router();
 
-router.get('/', protectRoutes, async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
    try {
       const posts = await Post.find();
       res.status(200).json({ posts });

@@ -1,5 +1,5 @@
+import express, { Request, Response } from 'express';
 import { expressJwt } from 'express-jwt';
-import express, { Request, Response ,NextFunction} from 'express';
 import jwt from 'jsonwebtoken';
 import { htttpErrors } from '../../config/constants/htttpStatuses';
 import { IUser } from '../../db/models/user/constants';
