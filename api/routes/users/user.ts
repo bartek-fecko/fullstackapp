@@ -4,26 +4,28 @@ import jwt from 'jsonwebtoken';
 import { htttpErrors } from '../../config/constants/htttpStatuses';
 import { IUser } from '../../db/models/user/constants';
 import User from '../../db/models/user/user';
-import { userRequestValidator, checkErrors } from '../../utils/validation/user/userAuthValidator';
+import { userRequestValidator, checkErrors, isUserInDatabase } from '../../utils/validation/user/userAuthValidator';
 import * as C from './constants';
 require('dotenv').config();
 
 const router = express.Router();
 
-router.post('/signup', userRequestValidator, checkErrors, async (req: Request, res: Response) => {
-   const isUserInDatabase = await User.find({ email: req.body.email });
-
-   if (isUserInDatabase && isUserInDatabase.length) {
-      return res.status(403).json({
-         error: C.UserAuthErros.EmailExisits,
-      });
-   }
-   const user = await new User(req.body);
-   await user.save();
-   res.status(200).json({
-      message: C.UserAuthConfirms.registerSucceed,
-   });
+router.post('/checkueserindatabase', isUserInDatabase, (req: Request, res: Response) => {
+   res.status(200).send(C.UserAuthErros.EmailDoesNotExists);
 });
+
+router.post(
+   '/signup',
+   isUserInDatabase,
+   userRequestValidator,
+   checkErrors,
+   async (req: Request, res: Response) => {
+      const user = await new User(req.body);
+      await user.save();
+      res.status(200).json({
+         message: C.UserAuthConfirms.registerSucceed,
+      });
+   });
 
 router.post('/signin', async (req: C.IsUserAuthorizedRequest, res: Response) => {
    const { email, password } = req.body;

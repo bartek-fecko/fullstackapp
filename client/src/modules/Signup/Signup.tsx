@@ -1,4 +1,5 @@
 import Copyright from '#/modules/Copyright/Copyright';
+import TextFieldWithAsyncLoader from '#/utils/TextFieldWithAsyncLoader';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -14,14 +15,25 @@ import { TextField } from 'final-form-material-ui';
 import * as React from 'react';
 import { Field, Form } from 'react-final-form';
 import * as C from './constants';
-import { validate } from './validate';
+import { checkEmailExists, validate } from './validate';
 
-const onSubmit = async values => {
-   console.log('dsafa')
-   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-   await sleep(300);
+const onSubmit = async (values: C.UserReqisterData) => {
+   try {
+      const response = await fetch('http://localhost:3000/api/users/signup', {
+         body: JSON.stringify({ ...values }),
+         headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+         },
+         method: 'POST',
+      });
+      const data = await response.json();
+      console.log(data);
+   } catch (e) {
+      // tslint:disable-next-line: no-console
+      console.error(e);
+   }
 
- };
+};
 
 const SignUp: React.FC = () => {
    const classes = C.useStyles({});
@@ -31,7 +43,7 @@ const SignUp: React.FC = () => {
          onSubmit={onSubmit}
          validate={validate}
          render={({ handleSubmit, submitting, pristine }) => (
-            <form onSubmit={handleSubmit}  className={classes.form}>
+            <form onSubmit={handleSubmit} className={classes.form}>
                <Container component="main" maxWidth="xs">
                   <CssBaseline />
                   <div className={classes.paper}>
@@ -46,11 +58,21 @@ const SignUp: React.FC = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        label="Your name"
+                        name="name"
+                        autoComplete="name"
                         autoFocus
+                     />
+                     <Field
+                        component={TextFieldWithAsyncLoader}
+                        validate={checkEmailExists}
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        name="email"
+                        label="Email"
+                        type="email"
+                        autoComplete="email"
                      />
                      <Field
                         component={TextField}
@@ -60,14 +82,14 @@ const SignUp: React.FC = () => {
                         name="password"
                         label="Password"
                         type="password"
-                        id="password"
                         autoComplete="current-password"
                      />
-                     <FormControlLabel
+                     {/* <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
-                     />
+                     /> */}
                      <Button
+                        type="submit"
                         disabled={submitting || pristine}
                         fullWidth
                         variant="contained"
