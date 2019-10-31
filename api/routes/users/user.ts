@@ -80,6 +80,24 @@ router.get('/logout', async (req: Request, res: Response) => {
 
 router.get('/:userId', isUserSignIn, (req: C.UserByIdRequest, res: Response) => res.json(req.profile));
 
+router.delete(
+   '/:userId',
+   isUserSignIn,
+   async (req: C.UserByIdRequest, res: Response) => {
+      const user = req.profile;
+      const userId = user && user._id;
+      try {
+         if (user) {
+            await user.remove();
+            res.status(200).json({ _id: userId });
+         }
+      } catch (err) {
+         return res.status(400).json({
+            error: err,
+         });
+      }
+   });
+
 router.put(
    '/:userId',
    isUserSignIn,
