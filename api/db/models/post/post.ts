@@ -5,6 +5,18 @@ const postSchema = new mongoose.Schema({
       required: true,
       type: String,
    },
+   created: {
+      default: Date.now(),
+      type: Date,
+   },
+   photo: {
+      contentType: String,
+      data: Buffer,
+   },
+   postedBy: {
+      ref: 'User',
+      type: (mongoose.Schema as any).ObjectId,
+   },
    title: {
       required: true,
       type: String,

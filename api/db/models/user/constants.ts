@@ -4,7 +4,6 @@ export interface IUser {
    email: string;
    passwordHash: string;
    updated?: string;
-   save: (...props: any) => any;
    encryptPassword(password: string): number | string;
    authenticate(text: string): boolean;
    [key: string]: any;
