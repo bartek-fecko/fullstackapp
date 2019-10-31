@@ -8,6 +8,7 @@ import { protectRoutes } from '../../utils/validation/protectedRoutes';
 import { isUserSignIn } from '../users/userAuthHelpers';
 import { userById } from './../users/userAuthHelpers';
 import * as C from './constants';
+import { isUserAuthorizedForPost, postById } from './postsAuthHelpers';
 
 const router = express.Router();
 
@@ -24,8 +25,8 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.post(
    '/create/:userId',
-   // isUserSignIn,
-   // postRequestValidator,
+   isUserSignIn,
+   postRequestValidator,
    checkErrors,
    async (req: C.PostRequest, res: Response) => {
       const form = new fileHandler.IncomingForm();
@@ -58,7 +59,7 @@ router.post(
 
 router.get(
    '/userPosts/:userId',
-   // isUserSignIn,
+   isUserSignIn,
    (req: C.PostRequest, res: Response) => {
       if (req.profile) {
          Post.find({
@@ -75,7 +76,50 @@ router.get(
                res.json(posts);
             });
       }
-   });
+   },
+);
+
+router.delete(
+   '/:userId',
+   isUserSignIn,
+   isUserAuthorizedForPost,
+   async (req: C.IsPostAuthorizedRequest, res: Response) => {
+      const post = req.post;
+      try {
+         if (post && req.profile) {
+            await post.remove();
+            res.status(200).json({ _id: req.profile.userId });
+         }
+      } catch (err) {
+         return res.status(400).json({
+            error: err,
+         });
+      }
+   },
+);
+
+router.put(
+   '/:userId',
+   isUserSignIn,
+   isUserAuthorizedForPost,
+   async (req: C.IsPostAuthorizedRequest, res: Response) => {
+      try {
+         if (!req.profile) {
+            throw new Error();
+         }
+         const postUpdated = await Post.findByIdAndUpdate(req.profile._id, {
+            ...req.body, updated: Date.now(),
+         });
+         res.status(200).json({ postUpdated });
+      } catch (err) {
+         return res.status(400).json({
+            error: err,
+         });
+      }
+   },
+);
+
+router.param('postId', postById);
 
 router.param('userId', userById);
 

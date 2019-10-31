@@ -112,10 +112,11 @@ router.put(
          res.status(200).json({ userUpdated });
       } catch (err) {
          return res.status(400).json({
-            error: C.UserAuthErros.UserNoAuthorized,
+            error: err,
          });
       }
-   });
+   },
+);
 
 router.param('userId', userById);
 
