@@ -22,7 +22,7 @@ export const checkEmailExists = async (email: string) => {
 
 export const validate = async (values: C.UserReqisterData) => {
    const errors: C.UserReqisterDataErrors = {};
-
+   console.log(errors)
    C.requiedFields.forEach((requiredField) => {
       if (!values[requiredField]) {
          errors[requiredField] = `${requiredField} is required.`;

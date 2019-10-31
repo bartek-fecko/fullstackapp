@@ -10,7 +10,7 @@ export type UserReqisterDataErrors = {
    [key in keyof Partial<UserReqisterData>]: string;
 };
 
-export const requiedFields = ['email', 'password'];
+export const requiedFields = ['name', 'email', 'password'];
 
 export enum UserValidationErrors {
    EmailIncorrect = 'This is incorrect email.',
