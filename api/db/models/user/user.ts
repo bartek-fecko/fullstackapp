@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
       trim: true,
       type: String,
    },
+   updated: {
+      type: Date,
+   },
    salt: String,
 });
 

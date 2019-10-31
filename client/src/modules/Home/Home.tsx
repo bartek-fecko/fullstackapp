@@ -52,14 +52,6 @@ export default function Home() {
 
    return (
       <>
-         <CssBaseline />
-         <AppBar position="relative">
-            <Toolbar>
-               <Typography variant="h6" color="inherit" noWrap>
-                  Album layout
-           </Typography>
-            </Toolbar>
-         </AppBar>
          <main>
             <div className={classes.heroContent}>
                <Container maxWidth="sm">

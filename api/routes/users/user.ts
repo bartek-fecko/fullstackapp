@@ -1,14 +1,25 @@
 import express, { Request, Response } from 'express';
-import { expressJwt } from 'express-jwt';
 import jwt from 'jsonwebtoken';
 import { htttpErrors } from '../../config/constants/htttpStatuses';
 import { IUser } from '../../db/models/user/constants';
 import User from '../../db/models/user/user';
-import { userRequestValidator, checkErrors, isUserInDatabase } from '../../utils/validation/user/userAuthValidator';
+import { checkErrors, isUserInDatabase, userRequestValidator } from '../../utils/validation/user/userAuthValidator';
 import * as C from './constants';
+import { isUserSignIn, userById } from './userAuthHelpers';
 require('dotenv').config();
 
 const router = express.Router();
+
+router.get('/', async (req: Request, res: Response) => {
+   try {
+      const users = await User.find();
+      res.status(200).json(users);
+   } catch (err) {
+      res.status(400).json({
+         error: err,
+      });
+   }
+});
 
 router.post('/checkueserindatabase', isUserInDatabase, (req: Request, res: Response) => {
    res.status(200).send(C.UserAuthErros.EmailDoesNotExists);
@@ -30,7 +41,7 @@ router.post(
 router.post('/signin', async (req: C.IsUserAuthorizedRequest, res: Response) => {
    const { email, password } = req.body;
    try {
-      const user: IUser = await User.findOne({ email });
+      const user: IUser = await User.findOne({ email }) as unknown as IUser;
       const { _id, name, passwordHash } = user;
 
       if (!user) {
@@ -66,5 +77,28 @@ router.get('/logout', async (req: Request, res: Response) => {
    res.clearCookie(C.TokenID);
    return res.json({ message: C.UserAuthConfirms.userLogout });
 });
+
+router.get('/:userId', isUserSignIn, (req: C.UserByIdRequest, res: Response) => res.json(req.profile));
+
+router.put(
+   '/:userId',
+   isUserSignIn,
+   async (req: C.UserByIdRequest, res: Response) => {
+      try {
+         if (!req.profile) {
+            throw new Error();
+         }
+         const userUpdated = await User.findByIdAndUpdate(req.profile._id, {
+            ...req.body, updated: Date.now(),
+         });
+         res.status(200).json({ userUpdated });
+      } catch (err) {
+         return res.status(400).json({
+            error: C.UserAuthErros.UserNoAuthorized,
+         });
+      }
+   });
+
+router.param('userId', userById);
 
 export { router };

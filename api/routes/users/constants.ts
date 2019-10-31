@@ -1,11 +1,12 @@
-import { IUser } from './../../db/models/user/constants';
 import { Request } from 'express';
+import { IUser } from './../../db/models/user/constants';
 
 export enum UserAuthErros {
    EmailExisits = 'Email already exists.',
    EmailDoesNotExists = 'Email does not exists.',
    DoesntMatch = 'Password doesn\'t match email.',
    UserDoesNotExists = 'User doesn\'t exists.',
+   UserNoAuthorized = 'You can\'t perform this action',
 }
 
 export enum UserAuthConfirms {
