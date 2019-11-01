@@ -39,7 +39,7 @@ const NavBar: React.FC = () => {
                   <Grid item>
                      <Button
                         component={withRouterLink}
-                        to="/signup"
+                        to="/signin"
                         variant="outlined"
                         size="small"
                         className={classes.signinButton}

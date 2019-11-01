@@ -1,5 +1,7 @@
 import Copyright from '#/modules/Copyright/Copyright';
-import TextFieldWithAsyncLoader from '#/utils/TextFieldWithAsyncLoader';
+import * as SignUpConstants from '#/modules/SignUp/constants';
+import SuccessfulRedirect from '#/modules/SuccessfulRedirect/SuccessfulRedirect';
+import withRouterLink from '#/utils/withRouterLink';
 import { Chip } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -14,18 +16,16 @@ import { TextField } from 'final-form-material-ui';
 import * as React from 'react';
 import { Field, Form } from 'react-final-form';
 import * as C from './constants';
-import { checkEmailExists, validate } from './validate';
-import withRouterLink from '#/utils/withRouterLink';
-import SuccessfulRedirect from '#/modules/SuccessfulRedirect/SuccessfulRedirect';
+import { validate } from './validate';
 
-const SignUp: React.FC = () => {
-   const classes = C.useStyles({});
-   const [serverErrors, setServerErrors] = React.useState<C.ServerErrors | false>(false);
+const SignIn: React.FC = () => {
+   const classes = SignUpConstants.useStyles({});
+   const [serverError, setServerError] = React.useState<C.ServerError | false>(false);
    const [isSuccessfulRegistered, setSuccessfulRegistered] = React.useState<boolean>(false);
 
-   const onSubmit = async (values: C.UserReqisterData) => {
+   const onSubmit = async (values: C.UserLoginData) => {
       try {
-         const response = await fetch('http://localhost:3000/api/users/signup', {
+         const response = await fetch('http://localhost:3000/api/users/signin', {
             body: JSON.stringify({ ...values }),
             headers: {
                'Content-type': 'application/json; charset=UTF-8',
@@ -33,35 +33,24 @@ const SignUp: React.FC = () => {
             method: 'POST',
          });
          const data = await response.json();
-         if (data.errors) {
-            setServerErrors(data.errors)
-         }
-         else if (data.message) {
+         if (data.error) {
+            setServerError(data.error);
+         } else if (data.message) { // CHANGE
             setSuccessfulRegistered(true);
          }
       } catch (err) {
          if (err) {
-            setServerErrors([{ msg: err }] as C.ServerErrors);
+            setServerError({ error: err });
          }
       }
    };
-
-   const serverErrorsDisplayer = (errors: C.ServerErrors) => (
-      errors.map(({ msg }, i) => (
-         <Chip
-            key={i}
-            label={msg}
-            color="secondary"
-         />
-      ))
-   );
 
    return (
       <>
          {isSuccessfulRegistered
             ? <SuccessfulRedirect
-               redirectPath="/signin"
-               textToDisplay={C.UserSuccessMessages.UserRegisteredSuccessfully}
+               redirectPath="/"
+               textToDisplay={'Logged in'}
             />
             : (
                <Form
@@ -76,24 +65,13 @@ const SignUp: React.FC = () => {
                                  <LockOutlinedIcon />
                               </Avatar>
                               <Typography component="h1" variant="h5">
-                                 Sign Up
+                                 Sign In
                               </Typography>
                               {
-                                 serverErrors && <>{serverErrorsDisplayer(serverErrors)}</>
+                                 serverError && <Chip label={serverError} color="secondary" />
                               }
                               <Field
                                  component={TextField}
-                                 variant="outlined"
-                                 margin="normal"
-                                 fullWidth
-                                 label="Your name"
-                                 name="name"
-                                 autoComplete="name"
-                                 autoFocus
-                              />
-                              <Field
-                                 component={TextFieldWithAsyncLoader}
-                                 validate={checkEmailExists}
                                  variant="outlined"
                                  margin="normal"
                                  fullWidth
@@ -120,12 +98,22 @@ const SignUp: React.FC = () => {
                                  color="primary"
                                  className={classes.submit}
                               >
-                                 Sign Up
+                                 Sign In
                               </Button>
                               <Grid container>
                                  <Grid item xs>
                                     <Link href="#" variant="body2">
                                        Forgot password?
+                                    </Link>
+                                 </Grid>
+                                 <Grid item>
+                                    <Link
+                                       component={withRouterLink}
+                                       to="/signup"
+                                       color="inherit"
+                                       variant="body2"
+                                    >
+                                       Don't have an account? Sign Up
                                     </Link>
                                  </Grid>
                               </Grid>
@@ -141,4 +129,4 @@ const SignUp: React.FC = () => {
    );
 };
 
-export default SignUp;
+export default SignIn;
