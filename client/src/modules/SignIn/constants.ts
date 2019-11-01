@@ -4,8 +4,8 @@ export interface UserLoginData {
 }
 
 export interface ServerSuccess {
-   token: any;
-   user: {
+   token?: any;
+   user?: {
       _id: string;
       email: string;
       name: string;
@@ -13,9 +13,9 @@ export interface ServerSuccess {
 }
 
 export interface ServerError {
-   error: string;
+   error?: string;
 }
 
-export type ServerResponse = ServerSuccess | ServerError;
+export type ServerResponse = ServerSuccess & ServerError;
 
 export const requiedFields = ['email', 'password'];

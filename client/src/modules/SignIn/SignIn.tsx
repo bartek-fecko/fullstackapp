@@ -15,13 +15,15 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { TextField } from 'final-form-material-ui';
 import * as React from 'react';
 import { Field, Form } from 'react-final-form';
+import useLocalStorage from 'react-use-localstorage';
 import * as C from './constants';
 import { validate } from './validate';
 
 const SignIn: React.FC = () => {
    const classes = SignUpConstants.useStyles({});
    const [serverError, setServerError] = React.useState<C.ServerError | false>(false);
-   const [isSuccessfulRegistered, setSuccessfulRegistered] = React.useState<boolean>(false);
+   const [isSuccessfulLoggedIn, setSuccessfulLoggedIn] = React.useState<boolean>(false);
+   const [token, setToken] = useLocalStorage('jwt-token', '');
 
    const onSubmit = async (values: C.UserLoginData) => {
       try {
@@ -32,11 +34,12 @@ const SignIn: React.FC = () => {
             },
             method: 'POST',
          });
-         const data = await response.json();
+         const data: C.ServerResponse = await response.json();
          if (data.error) {
-            setServerError(data.error);
-         } else if (data.message) { // CHANGE
-            setSuccessfulRegistered(true);
+            setServerError(data);
+         } else {
+            setToken(JSON.stringify(data));
+            setSuccessfulLoggedIn(true);
          }
       } catch (err) {
          if (err) {
@@ -47,7 +50,7 @@ const SignIn: React.FC = () => {
 
    return (
       <>
-         {isSuccessfulRegistered
+         {isSuccessfulLoggedIn
             ? <SuccessfulRedirect
                redirectPath="/"
                textToDisplay={'Logged in'}
