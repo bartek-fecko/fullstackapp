@@ -1,3 +1,4 @@
+import withRouterLink from '#/utils/withRouterLink';
 import {
    AppBar,
    Button,
@@ -36,11 +37,22 @@ const NavBar: React.FC = () => {
                      </Typography>
                   </Grid>
                   <Grid item>
-                     <Button variant="outlined" size="small" className={classes.signinButton}>
+                     <Button
+                        component={withRouterLink}
+                        to="/signup"
+                        variant="outlined"
+                        size="small"
+                        className={classes.signinButton}
+                     >
                         Sign in
                      </Button>
-                     <Link color="inherit" href="#" variant="body2">
-                        Sing up
+                     <Link
+                        component={withRouterLink}
+                        to="/signup"
+                        color="inherit"
+                        variant="body2"
+                     >
+                        Sign up
                      </Link>
                   </Grid>
                </Grid>

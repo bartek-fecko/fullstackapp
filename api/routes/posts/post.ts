@@ -26,8 +26,8 @@ router.get('/', async (req: Request, res: Response) => {
 router.post(
    '/create/:userId',
    isUserSignIn,
-   postRequestValidator,
-   checkErrors,
+   // postRequestValidator,
+   // checkErrors,
    async (req: C.PostRequest, res: Response) => {
       const form = new fileHandler.IncomingForm();
       form.keepExtensions = true;

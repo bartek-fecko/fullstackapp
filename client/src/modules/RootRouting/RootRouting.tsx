@@ -1,5 +1,5 @@
 import Home from '#/modules/Home/Home';
-import Signup from '#/modules/Signup/Signup';
+import Signup from '#/modules/SignUp/SignUp';
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';

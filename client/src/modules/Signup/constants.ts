@@ -10,6 +10,8 @@ export type UserReqisterDataErrors = {
    [key in keyof Partial<UserReqisterData>]: string;
 };
 
+export type ServerResponse = UserReqisterData | { error: string } | { message: string };
+
 export const requiedFields = ['name', 'email', 'password'];
 
 export enum UserValidationErrors {
@@ -17,7 +19,7 @@ export enum UserValidationErrors {
    InvalidPassword = 'Password must contain at least 4 characters!',
 }
 
-export enum PasswordValidation  {
+export enum PasswordValidation {
    MaxLength = 250,
    MinLength = 4,
 }

@@ -12,10 +12,10 @@ mongoose.connect(process.env.MONGO_DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  // tslint:disable-next-line: no-console
-  .then(() => console.log('connected to db.'));
+  // tslint:disable: no-console
+  .then(() => console.log('connected to db.'))
+  .catch((err) => console.log(err));
 
-// tslint:disable-next-line: no-console
 mongoose.connection.on('error', (err: Error) => console.log('db error:' + err));
 
 const postRoutes = require('./routes/posts/post').router;
