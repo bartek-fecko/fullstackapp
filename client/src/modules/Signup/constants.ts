@@ -12,11 +12,21 @@ export type UserReqisterDataErrors = {
 
 export type ServerResponse = UserReqisterData | { error: string } | { message: string };
 
+export type ServerErrors = Array<{
+   value: string;
+   msg: string;
+   param: string;
+}>;
+
 export const requiedFields = ['name', 'email', 'password'];
 
 export enum UserValidationErrors {
    EmailIncorrect = 'This is incorrect email.',
    InvalidPassword = 'Password must contain at least 4 characters!',
+}
+
+export enum UserSuccessMessages {
+   UserRegisteredSuccessfully = 'User registered successfully. Click to sign in.',
 }
 
 export enum PasswordValidation {
