@@ -1,4 +1,6 @@
-import withRouterLink from '#/utils/withRouterLink';
+import Logout from '#/components/Logout/Logout';
+import WithRouterLink from '#/components/WithRouterLink/WithRouterLink';
+import isUserLoggedIn from '#/utils/isUserLoggedIn';
 import {
    AppBar,
    Button,
@@ -10,7 +12,6 @@ import {
    Typography,
 } from '@material-ui/core';
 import * as React from 'react';
-import Logout from '#/components/Logout/Logout';
 
 const NavBar: React.FC = () => {
    const useStyles = makeStyles((theme) => ({
@@ -38,31 +39,38 @@ const NavBar: React.FC = () => {
                      </Typography>
                   </Grid>
                   <Grid item>
-                     <Button
-                        component={withRouterLink}
-                        to="/signin"
-                        variant="outlined"
-                        size="small"
-                        className={classes.signinButton}
-                     >
-                        Sign in
-                     </Button>
-                     <Link
-                        component={withRouterLink}
-                        to="/signup"
-                        color="inherit"
-                        variant="body2"
-                     >
-                        Sign up
-                     </Link>
-                     <Link
-                        component={Logout}
-                        to="/"
-                        color="inherit"
-                        variant="body2"
-                     >
-                        Log out
-                     </Link>
+                     {!isUserLoggedIn()
+                        ? (
+                           <>
+                              <Button
+                                 component={WithRouterLink}
+                                 to="/signin"
+                                 variant="outlined"
+                                 size="small"
+                                 className={classes.signinButton}
+                              >
+                                 Sign in
+                              </Button>
+                              <Link
+                                 component={WithRouterLink}
+                                 to="/signup"
+                                 color="inherit"
+                                 variant="body2"
+                              >
+                                 Sign up
+                              </Link>
+                           </>
+                        )
+                        : (
+                           <Link
+                              component={Logout}
+                              to="/"
+                              color="inherit"
+                              variant="body2"
+                           >
+                              Log out
+                           </Link>
+                        )}
                   </Grid>
                </Grid>
             </Toolbar>

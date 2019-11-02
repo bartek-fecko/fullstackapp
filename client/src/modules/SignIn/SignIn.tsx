@@ -1,6 +1,6 @@
 import Copyright from '#/modules/Copyright/Copyright';
 import * as SignUpConstants from '#/modules/SignUp/constants';
-import withRouterLink from '#/utils/withRouterLink';
+import WithRouterLink from '#/components/WithRouterLink/WithRouterLink';
 import { Chip } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -108,7 +108,7 @@ const SignIn: React.FC = () => {
                                  </Grid>
                                  <Grid item>
                                     <Link
-                                       component={withRouterLink}
+                                       component={WithRouterLink}
                                        to="/signup"
                                        color="inherit"
                                        variant="body2"

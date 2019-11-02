@@ -1,4 +1,4 @@
-import withRouterLink from '#/utils/withRouterLink';
+import WithRouterLink from '#/components/WithRouterLink/WithRouterLink';
 import { Button, createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
 
@@ -32,7 +32,7 @@ const SuccessfulRedirect: React.FC<SuccessfulRedirectProps> = ({ textToDisplay, 
             <Button
                variant="outlined"
                className={classes.button}
-               component={redirectPath && withRouterLink}
+               component={redirectPath && WithRouterLink}
                to={redirectPath}
             >
                {textToDisplay}

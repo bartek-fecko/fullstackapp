@@ -1,5 +1,5 @@
 import Copyright from '#/modules/Copyright/Copyright';
-import TextFieldWithAsyncLoader from '#/utils/TextFieldWithAsyncLoader';
+import TextFieldWithAsyncLoader from '#/components/WithAsyncLoader/TextFieldWithAsyncLoader';
 import { Chip } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -15,7 +15,6 @@ import * as React from 'react';
 import { Field, Form } from 'react-final-form';
 import * as C from './constants';
 import { checkEmailExists, validate } from './validate';
-import withRouterLink from '#/utils/withRouterLink';
 import SuccessfulRedirect from '#/components/SuccessfulRedirect/SuccessfulRedirect';
 
 const SignUp: React.FC = () => {

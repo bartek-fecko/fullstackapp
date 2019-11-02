@@ -4,8 +4,8 @@ import {
    LinkProps as RouterLinkProps,
 } from 'react-router-dom';
 
-const withRouterLink = React.forwardRef<HTMLAnchorElement, RouterLinkProps>((props, ref) => (
+const WithRouterLink = React.forwardRef<HTMLAnchorElement, RouterLinkProps>((props, ref) => (
    <RouterLink innerRef={ref} {...props} />
 ));
 
-export default withRouterLink;
+export default WithRouterLink;
