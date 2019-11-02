@@ -42,13 +42,15 @@ router.post('/signin', async (req: C.IsUserAuthorizedRequest, res: Response) => 
    const { email, password } = req.body;
    try {
       const user: IUser = await User.findOne({ email }) as unknown as IUser;
-      const { _id, name, passwordHash } = user;
 
       if (!user) {
          return res.status(401).json({
             error: C.UserAuthErros.EmailDoesNotExists,
          });
       }
+
+      const { _id, name, passwordHash } = user;
+
 
       if (passwordHash && !user.authenticate(password)) {
          return res.status(401).json({

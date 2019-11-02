@@ -2,6 +2,7 @@ import WithRouterLink from '#/components/WithRouterLink/WithRouterLink';
 import Copyright from '#/modules/Copyright/Copyright';
 import * as SignUpConstants from '#/modules/SignUp/constants';
 import { setUserAndToken } from '#/store/JwtStore/actions';
+import { LoggedUser } from '#/store/JwtStore/constants';
 import { Chip } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -20,12 +21,11 @@ import { Redirect } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
 import * as C from './constants';
 import { validate } from './validate';
-import { LoggedUser } from '#/store/JwtStore/constants';
 
 const SignIn: React.FC = () => {
    const dispatch = useDispatch();
    const classes = SignUpConstants.useStyles({});
-   const [serverError, setServerError] = React.useState<C.ServerError | false>(false);
+   const [serverError, setServerError] = React.useState<string | false>(false);
    const [isSuccessfulLoggedIn, setSuccessfulLoggedIn] = React.useState<boolean>(false);
    const [token, setToken] = useLocalStorage('jwt-token', '');
 
@@ -39,17 +39,15 @@ const SignIn: React.FC = () => {
             method: 'POST',
          });
          const data: C.ServerResponse = await response.json();
-         dispatch(setUserAndToken(data as LoggedUser));
          if (data.error) {
-            setServerError(data);
+            setServerError(data.error);
          } else {
             setToken(JSON.stringify(data));
+            dispatch(setUserAndToken(data as LoggedUser));
             setSuccessfulLoggedIn(true);
          }
       } catch (err) {
-         if (err) {
-            setServerError({ error: err });
-         }
+         setServerError(err);
       }
    };
 
