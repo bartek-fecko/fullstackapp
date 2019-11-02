@@ -1,6 +1,5 @@
 import Copyright from '#/modules/Copyright/Copyright';
 import * as SignUpConstants from '#/modules/SignUp/constants';
-import SuccessfulRedirect from '#/modules/SuccessfulRedirect/SuccessfulRedirect';
 import withRouterLink from '#/utils/withRouterLink';
 import { Chip } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
@@ -18,6 +17,7 @@ import { Field, Form } from 'react-final-form';
 import useLocalStorage from 'react-use-localstorage';
 import * as C from './constants';
 import { validate } from './validate';
+import { Redirect } from 'react-router-dom';
 
 const SignIn: React.FC = () => {
    const classes = SignUpConstants.useStyles({});
@@ -51,10 +51,7 @@ const SignIn: React.FC = () => {
    return (
       <>
          {isSuccessfulLoggedIn
-            ? <SuccessfulRedirect
-               redirectPath="/"
-               textToDisplay={'Logged in'}
-            />
+            ? <Redirect to="/" />
             : (
                <Form
                   onSubmit={onSubmit}

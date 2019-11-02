@@ -10,6 +10,7 @@ import {
    Typography,
 } from '@material-ui/core';
 import * as React from 'react';
+import Logout from '#/components/Logout/Logout';
 
 const NavBar: React.FC = () => {
    const useStyles = makeStyles((theme) => ({
@@ -53,6 +54,14 @@ const NavBar: React.FC = () => {
                         variant="body2"
                      >
                         Sign up
+                     </Link>
+                     <Link
+                        component={Logout}
+                        to="/"
+                        color="inherit"
+                        variant="body2"
+                     >
+                        Log out
                      </Link>
                   </Grid>
                </Grid>

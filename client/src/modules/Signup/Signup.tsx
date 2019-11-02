@@ -16,7 +16,7 @@ import { Field, Form } from 'react-final-form';
 import * as C from './constants';
 import { checkEmailExists, validate } from './validate';
 import withRouterLink from '#/utils/withRouterLink';
-import SuccessfulRedirect from '#/modules/SuccessfulRedirect/SuccessfulRedirect';
+import SuccessfulRedirect from '#/components/SuccessfulRedirect/SuccessfulRedirect';
 
 const SignUp: React.FC = () => {
    const classes = C.useStyles({});
