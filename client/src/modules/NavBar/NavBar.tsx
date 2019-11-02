@@ -1,6 +1,6 @@
 import Logout from '#/components/Logout/Logout';
 import WithRouterLink from '#/components/WithRouterLink/WithRouterLink';
-import isUserLoggedIn from '#/utils/isUserLoggedIn';
+import userFromToken, { IUserFromToken } from '#/utils/userFromToken';
 import {
    AppBar,
    Button,
@@ -39,7 +39,7 @@ const NavBar: React.FC = () => {
                      </Typography>
                   </Grid>
                   <Grid item>
-                     {!isUserLoggedIn()
+                     {!userFromToken()
                         ? (
                            <>
                               <Button
@@ -62,6 +62,7 @@ const NavBar: React.FC = () => {
                            </>
                         )
                         : (
+                           <>
                            <Link
                               component={Logout}
                               to="/"
@@ -70,6 +71,15 @@ const NavBar: React.FC = () => {
                            >
                               Log out
                            </Link>
+                           <Link
+                              component={Logout}
+                              to="#"
+                              color="inherit"
+                              variant="body2"
+                           >
+                              {(userFromToken() as IUserFromToken).user.name}
+                           </Link>
+                           </>
                         )}
                   </Grid>
                </Grid>
