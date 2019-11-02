@@ -1,6 +1,10 @@
 import Logout from '#/components/Logout/Logout';
 import WithRouterLink from '#/components/WithRouterLink/WithRouterLink';
-import userFromToken, { IUserFromToken } from '#/utils/userFromToken';
+import AppState from '#/config/appState';
+import { setUserAndToken } from '#/store/JwtStore/actions';
+import { LoggedUser } from '#/store/JwtStore/constants';
+import dispatchInsideEffect from '#/utils/dispatchInsideEffect';
+import userAndToken from '#/utils/userAndToken';
 import {
    AppBar,
    Button,
@@ -12,10 +16,24 @@ import {
    Typography,
 } from '@material-ui/core';
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const NavBar: React.FC = () => {
+   const dispatch = useDispatch();
+   const user = useSelector((state: AppState) => state.userWithToken.loggedUser.user);
+   const token = useSelector((state: AppState) => state.userWithToken.loggedUser.token);
+
+   dispatchInsideEffect(
+      setUserAndToken(userAndToken() as LoggedUser),
+      dispatch,
+   );
+
    const useStyles = makeStyles((theme) => ({
-      signinButton: {
+      buttonWithMarginLeft: {
+         color: '#fff',
+         marginLeft: theme.spacing(1),
+      },
+      buttonWithMarginRight: {
          color: '#fff',
          marginRight: theme.spacing(1),
       },
@@ -39,7 +57,7 @@ const NavBar: React.FC = () => {
                      </Typography>
                   </Grid>
                   <Grid item>
-                     {!userFromToken()
+                     {!token
                         ? (
                            <>
                               <Button
@@ -47,7 +65,7 @@ const NavBar: React.FC = () => {
                                  to="/signin"
                                  variant="outlined"
                                  size="small"
-                                 className={classes.signinButton}
+                                 className={classes.buttonWithMarginRight}
                               >
                                  Sign in
                               </Button>
@@ -63,22 +81,23 @@ const NavBar: React.FC = () => {
                         )
                         : (
                            <>
-                           <Link
-                              component={Logout}
-                              to="/"
-                              color="inherit"
-                              variant="body2"
-                           >
-                              Log out
-                           </Link>
-                           <Link
-                              component={Logout}
-                              to="#"
-                              color="inherit"
-                              variant="body2"
-                           >
-                              {(userFromToken() as IUserFromToken).user.name}
-                           </Link>
+                              <Link
+                                 component={Logout}
+                                 to="/"
+                                 color="inherit"
+                                 variant="body2"
+                              >
+                                 Log out
+                              </Link>
+                              <Button
+                                 component={WithRouterLink}
+                                 to={`/user/${user._id}`}
+                                 variant="outlined"
+                                 size="small"
+                                 className={classes.buttonWithMarginLeft}
+                              >
+                                 {user.name}
+                              </Button>
                            </>
                         )}
                   </Grid>

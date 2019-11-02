@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import useLocalStorage from 'react-use-localstorage';
 
 export interface IUserFromToken {
@@ -10,7 +10,7 @@ export interface IUserFromToken {
    };
 }
 
-const userFromToken = (): IUserFromToken | false => {
+const userAndToken = (): IUserFromToken | false => {
    const [userInfo] = useLocalStorage('jwt-token');
    if (!userInfo) {
       return false;
@@ -20,4 +20,4 @@ const userFromToken = (): IUserFromToken | false => {
    return { token, user };
 };
 
-export default userFromToken;
+export default userAndToken;

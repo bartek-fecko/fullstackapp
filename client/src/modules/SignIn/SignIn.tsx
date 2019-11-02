@@ -1,6 +1,7 @@
+import WithRouterLink from '#/components/WithRouterLink/WithRouterLink';
 import Copyright from '#/modules/Copyright/Copyright';
 import * as SignUpConstants from '#/modules/SignUp/constants';
-import WithRouterLink from '#/components/WithRouterLink/WithRouterLink';
+import { setUserAndToken } from '#/store/JwtStore/actions';
 import { Chip } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -14,12 +15,15 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { TextField } from 'final-form-material-ui';
 import * as React from 'react';
 import { Field, Form } from 'react-final-form';
+import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
 import * as C from './constants';
 import { validate } from './validate';
-import { Redirect } from 'react-router-dom';
+import { LoggedUser } from '#/store/JwtStore/constants';
 
 const SignIn: React.FC = () => {
+   const dispatch = useDispatch();
    const classes = SignUpConstants.useStyles({});
    const [serverError, setServerError] = React.useState<C.ServerError | false>(false);
    const [isSuccessfulLoggedIn, setSuccessfulLoggedIn] = React.useState<boolean>(false);
@@ -35,6 +39,7 @@ const SignIn: React.FC = () => {
             method: 'POST',
          });
          const data: C.ServerResponse = await response.json();
+         dispatch(setUserAndToken(data as LoggedUser));
          if (data.error) {
             setServerError(data);
          } else {

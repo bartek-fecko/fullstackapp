@@ -4,7 +4,7 @@ export interface UserLoginData {
 }
 
 export interface ServerSuccess {
-   token?: any;
+   token?: string;
    user?: {
       _id: string;
       email: string;
