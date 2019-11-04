@@ -1,5 +1,6 @@
 import AppState from '#/config/appState';
 import { requestUsers } from '#/store/UsersStore/actions';
+import { Grid, Paper } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -10,8 +11,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid } from '@material-ui/core';
-import { Redirect } from 'react-router';
+import ErrorChip from '#/components/ErrorChip/ErrorChip';
 
 const Users = () => {
    const dispatch = useDispatch();
@@ -23,34 +23,22 @@ const Users = () => {
       dispatch(requestUsers());
    }, []);
 
-   // const getUser = async () => {
-   //    try {
-   //       const response = await fetch(`http://localhost:3000/api/users/${params.userId}`, {
-   //          headers: {
-   //             'Authorization': `Bearer ${token}`,
-   //             'Content-type': 'application/json; charset=UTF-8',
-   //          },
-   //       });
-   //       const data = await response.json();
-   //       console.log(data)
-   //       setProflieUser(data);
-   //    } catch (err) {
-   //       if (err) {
-   //          console.log(err)
-   //          setAuthorized(false);
-   //       }
-   //    }
-   // };
-
    const useStyles = makeStyles((theme: Theme) =>
       createStyles({
-         root: {
-            width: '100%',
-            maxWidth: 360,
-            backgroundColor: theme.palette.background.paper,
+         header: {
+            margin: `${theme.spacing(2)}px 0`,
          },
          inline: {
             display: 'inline',
+         },
+         paper: {
+            margin: '0 auto',
+            padding: theme.spacing(2, 1),
+         },
+         root: {
+            backgroundColor: theme.palette.background.paper,
+            maxWidth: 360,
+            width: '100%',
          },
       }),
    );
@@ -59,36 +47,48 @@ const Users = () => {
 
    return (
       <>
-         {error ? 'Oh no something went wrong'
+         {error ? <ErrorChip />
             : isLoading ? <div>lodading..</div>
-               : <Grid container alignItems="center">
-                  <Grid item xs={10}>
-                     {users.map(({ _id, email, name }) => (
-                        <List className={classes.root} key={Math.random()}>
-                           <ListItem alignItems="flex-start">
-                              <ListItemAvatar>
-                                 <Avatar alt={name.charAt(0).toUpperCase()} src={null} />
-                              </ListItemAvatar>
-                              <ListItemText
-                                 primary="Brunch this weekend?"
-                                 secondary={
-                                    <React.Fragment>
-                                       <Typography
-                                          component="span"
-                                          variant="body2"
-                                          className={classes.inline}
-                                          color="textPrimary"
-                                       >
-                                          {name}
-                                       </Typography>
-                                       {' — I\'ll be in your neighborhood doing errands this…'}
-                                    </React.Fragment>
-                                 }
-                              />
-                           </ListItem>
-                           <Divider variant="inset" component="li" />
-                        </List>
-                     ))}
+               : <Grid container justify="center">
+                  <Grid item>
+                     <Typography variant="h5" className={classes.header}>
+                        Users
+                     </Typography>
+                     <Divider variant="inset" component="li" />
+                  </Grid>
+                  <Grid container justify="center">
+                     <Paper className={classes.paper}>
+                        <Grid item xs={10} container direction="column" justify="center" alignItems="center"  >
+                           {users.map(({ _id, email, name }) => (
+                              <List className={classes.root} key={_id}>
+                                 <ListItem alignItems="flex-start">
+                                    <ListItemAvatar>
+                                       <Avatar alt={name.charAt(0).toUpperCase()} src={null}>
+                                          {name.charAt(0).toUpperCase()}
+                                       </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                       primary="Brunch this weekend?"
+                                       secondary={
+                                          <React.Fragment>
+                                             <Typography
+                                                component="span"
+                                                variant="body2"
+                                                className={classes.inline}
+                                                color="textPrimary"
+                                             >
+                                                {name}
+                                             </Typography>
+                                             {' — I\'ll be in your neighborhood doing errands this…'}
+                                          </React.Fragment>
+                                       }
+                                    />
+                                 </ListItem>
+                                 
+                              </List>
+                           ))}
+                        </Grid>
+                     </Paper>
                   </Grid>
                </Grid>
          }

@@ -20,6 +20,9 @@ export function* getDataAsync() {
    try {
       yield put(Actions.loading(true));
       const data = yield call(getUsers);
+      if (data.error) {
+         throw new Error();
+      }
       yield put(Actions.requestUsersSucess(data));
    } catch (e) {
       yield put(Actions.error(new Error(e)));
