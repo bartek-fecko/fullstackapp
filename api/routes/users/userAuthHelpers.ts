@@ -7,7 +7,12 @@ import * as C from './constants';
 
 export const userById = ((req: C.UserByIdRequest, res: Response, next: NextFunction, id) => {
    User.findById(id).exec((err: Error, user: IUser) => {
-      if (err || !user) {
+      if (err) {
+         return res.status(500).json({
+            error: htttpErrors.error500,
+         });
+      }
+      if (!user) {
          return res.status(400).json({
             error: C.UserAuthErros.UserDoesNotExists,
          });

@@ -51,7 +51,6 @@ router.post('/signin', async (req: C.IsUserAuthorizedRequest, res: Response) => 
 
       const { _id, name, passwordHash } = user;
 
-
       if (passwordHash && !user.authenticate(password)) {
          return res.status(401).json({
             error: C.UserAuthErros.DoesntMatch,

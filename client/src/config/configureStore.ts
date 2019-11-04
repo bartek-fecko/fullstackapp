@@ -1,7 +1,8 @@
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './rootReducer';
-// import mainPageSaga from 'redux/mainPageArticlesRedux/sagas';
+
+import usersSaga from '#/store/UsersStore/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -14,6 +15,6 @@ function configureStore() {
 
 const store = configureStore();
 
-// sagaMiddleware.run(mainPageSaga);
+sagaMiddleware.run(usersSaga);
 
 export default store;
