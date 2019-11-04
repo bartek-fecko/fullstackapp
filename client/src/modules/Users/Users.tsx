@@ -1,3 +1,4 @@
+import ErrorChip from '#/components/ErrorChip/ErrorChip';
 import AppState from '#/config/appState';
 import { requestUsers } from '#/store/UsersStore/actions';
 import { Grid, Paper } from '@material-ui/core';
@@ -11,7 +12,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ErrorChip from '#/components/ErrorChip/ErrorChip';
+import UsersSkeleton from './UsersSkeleton';
 
 const Users = () => {
    const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const Users = () => {
          },
          root: {
             backgroundColor: theme.palette.background.paper,
-            maxWidth: 360,
+            maxWidth: 380,
             width: '100%',
          },
       }),
@@ -48,22 +49,25 @@ const Users = () => {
    return (
       <>
          {error ? <ErrorChip />
-            : isLoading ? <div>lodading..</div>
+            : isLoading ? <UsersSkeleton />
                : <Grid container justify="center">
                   <Grid item>
                      <Typography variant="h5" className={classes.header}>
                         Users
                      </Typography>
-                     <Divider variant="inset" component="li" />
                   </Grid>
                   <Grid container justify="center">
                      <Paper className={classes.paper}>
                         <Grid item xs={10} container direction="column" justify="center" alignItems="center"  >
-                           {users.map(({ _id, email, name }) => (
+                           {users.map(({ _id, email, name, avatarColor }) => (
                               <List className={classes.root} key={_id}>
                                  <ListItem alignItems="flex-start">
                                     <ListItemAvatar>
-                                       <Avatar alt={name.charAt(0).toUpperCase()} src={null}>
+                                       <Avatar
+                                          style={{ background: avatarColor }}
+                                          alt={name.charAt(0).toUpperCase()}
+                                          src={null}
+                                       >
                                           {name.charAt(0).toUpperCase()}
                                        </Avatar>
                                     </ListItemAvatar>
@@ -84,7 +88,7 @@ const Users = () => {
                                        }
                                     />
                                  </ListItem>
-                                 
+
                               </List>
                            ))}
                         </Grid>

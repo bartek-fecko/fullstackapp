@@ -5,6 +5,7 @@ import { IUser } from '../../db/models/user/constants';
 import User from '../../db/models/user/user';
 import { checkErrors, isUserInDatabase, userRequestValidator } from '../../utils/validation/user/userAuthValidator';
 import * as C from './constants';
+import randomColor from './randomColor';
 import { isUserSignIn, userById } from './userAuthHelpers';
 require('dotenv').config();
 
@@ -31,7 +32,7 @@ router.post(
    userRequestValidator,
    checkErrors,
    async (req: Request, res: Response) => {
-      const user = await new User(req.body);
+      const user = await new User({...req.body, avatarColor: randomColor()});
       await user.save();
       res.status(200).json({
          message: C.UserAuthConfirms.registerSucceed,

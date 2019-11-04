@@ -23,6 +23,7 @@ export interface Users {
    _id: string;
    name: string;
    email: string;
+   avatarColor: string;
 }
 
 export interface UsersState {

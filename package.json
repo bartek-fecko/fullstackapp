@@ -16,6 +16,7 @@
     "heroku-prebuild": "concurrently \"npm install --dev\" \"cd client npm install --dev\""
   },
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.30",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "cookie-parser": "~1.4.4",

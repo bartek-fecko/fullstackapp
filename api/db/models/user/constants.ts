@@ -5,6 +5,7 @@ export interface IUser {
    passwordHash: string;
    updated?: string;
    created?: string;
+   avatarColor: string;
    encryptPassword(password: string): number | string;
    authenticate(text: string): boolean;
    [key: string]: any;
