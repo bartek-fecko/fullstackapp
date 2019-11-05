@@ -1,16 +1,18 @@
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from '@material-ui/styles';
 
-export  interface IUserProfile {
+export  interface UserProfileData {
+   _id: string;
    name: string;
    email: string;
    updated?: string;
+   userDescription?: string;
    avatarColor: string;
    image?: string;
 }
 
 export const useStyles = makeStyles({
    root: {
-      height: `calc(100vh - ${65}px)`,
+      minHeight: `calc(100vh - ${65}px)`,
       overflow: 'hidden',
    },
 });

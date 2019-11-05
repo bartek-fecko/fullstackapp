@@ -4,6 +4,7 @@ export interface UserReqisterData {
    name: string;
    email: string;
    password: string;
+   passwordConfirm: string;
 }
 
 export type UserReqisterDataErrors = {
@@ -12,7 +13,7 @@ export type UserReqisterDataErrors = {
 
 export type ServerResponse = UserReqisterData | { error: string } | { message: string };
 
-export const requiedFields = ['name', 'email', 'password'];
+export const requiedFields = ['name', 'email', 'password', 'passwordConfirm'];
 
 export enum UserValidationErrors {
    EmailIncorrect = 'This is incorrect email.',

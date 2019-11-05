@@ -12,7 +12,7 @@ export const RootRouter: React.FC = () => (
    <BrowserRouter>
          <NavBar />
          <Switch>
-            <Route path="/" exact component={UserProfile} />
+            <Route path="/" exact component={Users} />
             <Route path="/signup" component={SignUp} />
             <Route path="/signin" component={SignIn} />
             <Route path="/users" exact component={Users} />

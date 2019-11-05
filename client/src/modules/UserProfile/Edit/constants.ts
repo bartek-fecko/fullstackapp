@@ -1,19 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
-
-export interface UserEditData {
-   email?: string;
-   password?: string;
-   mainText?: string;
-}
+import { UserProfileData } from '../constants';
 
 export interface ServerSuccess {
-   token?: string;
-   user?: {
-      _id: string;
-      email: string;
-      name: string;
-   };
+   updatedUser: UserProfileData;
 }
 
 export interface ServerError {
@@ -22,8 +12,9 @@ export interface ServerError {
 
 export type ServerResponse = ServerSuccess & ServerError;
 
-export const requiedFields = ['email', 'password'];
-
+export enum SuccessfulResponse {
+   UserUpdated = 'Profile Successfully updated',
+}
 
 export const useStyles = makeStyles((theme: Theme) => ({
    avatar: {
@@ -38,7 +29,6 @@ export const useStyles = makeStyles((theme: Theme) => ({
       alignItems: 'center',
       display: 'flex',
       flexDirection: 'column',
-      marginTop: theme.spacing(8),
    },
    submit: {
       margin: theme.spacing(3, 0, 2),

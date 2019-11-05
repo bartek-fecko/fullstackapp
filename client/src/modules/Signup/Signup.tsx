@@ -100,6 +100,15 @@ const SignUp: React.FC = () => {
                                  type="password"
                                  autoComplete="current-password"
                               />
+                              <Field
+                                 component={TextField}
+                                 variant="outlined"
+                                 margin="normal"
+                                 fullWidth
+                                 name="passwordConfirm"
+                                 label="Password"
+                                 type="password"
+                              />
                               <Button
                                  type="submit"
                                  disabled={submitting || pristine}

@@ -33,6 +33,10 @@ export const validate = async (values: C.UserReqisterData) => {
       errors.email = C.UserValidationErrors.EmailIncorrect;
    }
 
+   if (values.passwordConfirm !== values.password) {
+      errors.passwordConfirm = 'Passwords don\'t match.';
+   }
+
    if (values.password && values.password.length < 4) {
       errors.password = `Your password must be between ${C.PasswordValidation.MinLength} and ${C.PasswordValidation.MaxLength} characters.`;
    }
