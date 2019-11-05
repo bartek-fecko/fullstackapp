@@ -1,6 +1,7 @@
 export enum UserFromTokenTypes {
    GetUserAndToken = 'userAndToken/get',
    SetUserAndToken = 'userAndToken/set',
+   UpdateUserOrToken = 'userAndToken/update',
 }
 
 export type UserFromTokenActions = {
@@ -8,6 +9,9 @@ export type UserFromTokenActions = {
 } | {
    type: UserFromTokenTypes.SetUserAndToken;
    loggedUser: LoggedUser;
+}  | {
+   type: UserFromTokenTypes.UpdateUserOrToken;
+   loggedUser: Partial<LoggedUser>;
 };
 
 export interface LoggedUser {

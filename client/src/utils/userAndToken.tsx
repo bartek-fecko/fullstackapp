@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import useLocalStorage from 'react-use-localstorage';
 
 export interface IUserFromToken {

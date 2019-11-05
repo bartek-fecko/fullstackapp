@@ -7,6 +7,14 @@ const JwtReducer = (state: C.UserInfoState = C.initialState, action: C.UserFromT
             ...state,
             loggedUser: action.loggedUser,
          };
+      case C.UserFromTokenTypes.UpdateUserOrToken:
+         return {
+            ...state,
+            loggedUser: {
+               ...state.loggedUser,
+               ...action.loggedUser,
+            },
+         };
       case C.UserFromTokenTypes.GetUserAndToken:
          return {
             ...state,

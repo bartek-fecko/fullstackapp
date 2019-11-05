@@ -91,7 +91,7 @@ const NavBar: React.FC = () => {
                               </Link>
                               <Button
                                  component={WithRouterLink}
-                                 to={`/user/${user._id}`}
+                                 to={`/users/${user._id}`}
                                  variant="outlined"
                                  size="small"
                                  className={classes.buttonWithMarginLeft}

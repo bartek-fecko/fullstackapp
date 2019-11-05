@@ -1,14 +1,17 @@
 import AppState from '#/config/appState';
 import Copyright from '#/modules/Copyright/Copyright';
-import { validate } from '#/modules/SignIn/validate';
+import { updateUserOrToken } from '#/store/JwtStore/actions';
+import { LoggedUser } from '#/store/JwtStore/constants';
 import { Avatar, Box, Button, Chip, Container, CssBaseline, Typography } from '@material-ui/core';
 import { TextField } from 'final-form-material-ui';
 import * as React from 'react';
 import { Field, Form } from 'react-final-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import useLocalStorage from 'react-use-localstorage';
 import { UserProfileData } from '../constants';
 import * as C from './constants';
+import { validate } from './validate';
 
 interface UserEditProps {
    user: UserProfileData;
@@ -17,11 +20,13 @@ interface UserEditProps {
 const UserEdit: React.FC<UserEditProps> = ({ user }) => {
    const { name, image, avatarColor } = user;
    const params: { userId?: string } = useParams();
+   const [_, setToken] = useLocalStorage('jwt-token', '');
+   const dispatch = useDispatch();
    const token = useSelector((state: AppState) => state.userWithToken.loggedUser.token);
    const [successfulUpdated, setSuccessfulUpdated] = React.useState(false);
    const [serverError, setServerError] = React.useState<string | boolean>(false);
 
-   const onSubmit = async (values) => {
+   const onSubmit = async (values: UserProfileData) => {
       try {
          const response = await fetch(`http://localhost:3000/api/users/${params.userId}`, {
             body: JSON.stringify({ ...values }),
@@ -35,7 +40,9 @@ const UserEdit: React.FC<UserEditProps> = ({ user }) => {
          if (data.error) {
             setServerError(data.error);
          } else {
+            setToken(JSON.stringify({ user: data.updatedUser, token }));
             setSuccessfulUpdated(true);
+            dispatch(updateUserOrToken({ user: data.updatedUser } as unknown as LoggedUser));
          }
       } catch (err) {
          setServerError(err);
@@ -48,7 +55,7 @@ const UserEdit: React.FC<UserEditProps> = ({ user }) => {
       <>
          <Form
             onSubmit={onSubmit}
-            validate={validate as any}
+            validate={validate}
             initialValues={user}
             render={({ handleSubmit, submitting, pristine }) => (
                <form onSubmit={handleSubmit} className={classes.form}>

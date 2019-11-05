@@ -16,6 +16,12 @@ export enum SuccessfulResponse {
    UserUpdated = 'Profile Successfully updated',
 }
 
+export const requiedFields = ['name'];
+
+export type UserProfileDataErrors = {
+   [key in keyof Partial<UserProfileData>]: string;
+};
+
 export const useStyles = makeStyles((theme: Theme) => ({
    avatar: {
       backgroundColor: theme.palette.secondary.main,

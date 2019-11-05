@@ -32,7 +32,7 @@ router.post(
    // userRequestValidator,
    // checkErrors,
    async (req: Request, res: Response) => {
-      const user = await new User({...req.body, avatarColor: randomColor()});
+      const user = await new User({ ...req.body, avatarColor: randomColor() });
       await user.save();
       res.status(200).json({
          message: C.UserAuthConfirms.registerSucceed,
@@ -110,7 +110,7 @@ router.put(
          }
          const updatedUser = await User.findByIdAndUpdate(req.profile._id, {
             ...req.body, updated: Date.now(),
-         });
+         }, { new: true });
          res.status(200).json({ updatedUser });
       } catch (err) {
          return res.status(400).json({
