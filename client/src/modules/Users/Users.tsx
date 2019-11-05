@@ -73,7 +73,7 @@ const Users = () => {
                   </Grid>
                   <Grid container justify="center">
                      <Grid item xs={10} container direction="column" justify="center" alignItems="center"  >
-                        {users.map(({ _id, email, name, avatarColor }) => (
+                        {users && users.map(({ _id, email, name, avatarColor }) => (
                            <Paper className={classes.paper} key={_id}>
                               <Link
                                  component={WithRouterLink}

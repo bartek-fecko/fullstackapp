@@ -18,7 +18,7 @@ interface UserEditProps {
 }
 
 const UserEdit: React.FC<UserEditProps> = ({ user }) => {
-   const { name, image, avatarColor } = user;
+   const { name, image, avatarColor, updated } = user;
    const params: { userId?: string } = useParams();
    const [_, setToken] = useLocalStorage('jwt-token', '');
    const dispatch = useDispatch();
@@ -116,6 +116,14 @@ const UserEdit: React.FC<UserEditProps> = ({ user }) => {
                         >
                            Edit
                         </Button>
+                        <Typography
+                           variant="caption"
+                           display="block"
+                           gutterBottom
+                           className={classes.updatedText}
+                        >
+                           updated {new Date(updated).toDateString()}
+                        </Typography>
                      </div>
                      <Box mt={8}>
                         <Copyright />

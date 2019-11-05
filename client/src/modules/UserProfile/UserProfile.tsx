@@ -67,16 +67,15 @@ const UserProfile = () => {
                      textColor="primary"
                      centered
                   >
-                     <Tab label="Edit" {...C.a11yProps(0)} icon={<EditOutlinedIcon />} />
-                     <Tab label="Item Two" {...C.a11yProps(1)} icon={<PersonOutlineOutlinedIcon />} />
-                     <Tab label="Item Three"{...C.a11yProps(2)} />
+                     <Tab label="Edit"  icon={<EditOutlinedIcon />} />
+                     <Tab label="Profile" icon={<PersonOutlineOutlinedIcon />} />
+                     <Tab label="Item Three"/>
                   </Tabs>
                   <TabPanel value={value} index={0}>
                      {(userProfile as C.UserProfileData).name && <UserEdit user={userProfile as C.UserProfileData} />}
                   </TabPanel>
                   <TabPanel value={value} index={1}>
                      <div>{JSON.stringify(userProfile)}</div>
-                     Item Two
                   </TabPanel>
                   <TabPanel value={value} index={2}>
                      Item Three
