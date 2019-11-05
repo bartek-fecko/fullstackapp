@@ -17,6 +17,7 @@ export const userById = ((req: C.UserByIdRequest, res: Response, next: NextFunct
             error: C.UserAuthErros.UserDoesNotExists,
          });
       }
+      (user.passwordHash as any) = null;
       req.profile = user;
       next();
    });

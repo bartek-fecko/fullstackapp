@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme: Theme) =>
       media: {
          height: 20,
       },
+      root: {
+         marginTop: `${theme.spacing(4)}px`,
+      },
    }),
 );
 
@@ -22,7 +25,7 @@ const UsersSkeleton: React.FC = () => {
    const amount = [0, 1, 2];
 
    return (
-      <>
+      <div className={classes.root}>
          {amount.map((elem) => (
             <Card className={classes.card} key={elem}>
                <CardHeader
@@ -41,7 +44,7 @@ const UsersSkeleton: React.FC = () => {
                <Skeleton variant="rect" className={classes.media} />
             </Card>
          ))}
-      </>
+      </div>
    );
 };
 

@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
 export interface UserReqisterData {
    name: string;
@@ -11,12 +11,6 @@ export type UserReqisterDataErrors = {
 };
 
 export type ServerResponse = UserReqisterData | { error: string } | { message: string };
-
-export type ServerErrors = Array<{
-   value: string;
-   msg: string;
-   param: string;
-}>;
 
 export const requiedFields = ['name', 'email', 'password'];
 
@@ -34,7 +28,7 @@ export enum PasswordValidation {
    MinLength = 4,
 }
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme: Theme) => ({
    avatar: {
       backgroundColor: theme.palette.secondary.main,
       margin: theme.spacing(1),

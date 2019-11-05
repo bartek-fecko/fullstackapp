@@ -9,7 +9,7 @@ export const postById = (req: C.PostByIdRequest, res: Response, next: NextFuncti
       .exec((err: Error, post) => {
          if (err || !post) {
             return res.status(400).json({
-               erorr: err,
+               error: err,
             });
          }
          req.post = post;

@@ -1,6 +1,7 @@
-import Copyright from '#/modules/Copyright/Copyright';
+import SuccessfulRedirect from '#/components/SuccessfulRedirect/SuccessfulRedirect';
 import TextFieldWithAsyncLoader from '#/components/WithAsyncLoader/TextFieldWithAsyncLoader';
-import { Chip } from '@material-ui/core';
+import Copyright from '#/modules/Copyright/Copyright';
+import { ServerErrors, serverErrorsDisplayer } from '#/utils/serverErrorsDisplayer';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -15,11 +16,10 @@ import * as React from 'react';
 import { Field, Form } from 'react-final-form';
 import * as C from './constants';
 import { checkEmailExists, validate } from './validate';
-import SuccessfulRedirect from '#/components/SuccessfulRedirect/SuccessfulRedirect';
 
 const SignUp: React.FC = () => {
    const classes = C.useStyles({});
-   const [serverErrors, setServerErrors] = React.useState<C.ServerErrors | false>(false);
+   const [serverErrors, setServerErrors] = React.useState<ServerErrors | false>(false);
    const [isSuccessfulRegistered, setSuccessfulRegistered] = React.useState<boolean>(false);
 
    const onSubmit = async (values: C.UserReqisterData) => {
@@ -33,27 +33,16 @@ const SignUp: React.FC = () => {
          });
          const data = await response.json();
          if (data.errors) {
-            setServerErrors(data.errors)
-         }
-         else if (data.message) {
+            setServerErrors(data.errors);
+         } else if (data.message) {
             setSuccessfulRegistered(true);
          }
       } catch (err) {
          if (err) {
-            setServerErrors([{ msg: err }] as C.ServerErrors);
+            setServerErrors([{ msg: err }] as ServerErrors);
          }
       }
    };
-
-   const serverErrorsDisplayer = (errors: C.ServerErrors) => (
-      errors.map(({ msg }, i) => (
-         <Chip
-            key={i}
-            label={msg}
-            color="secondary"
-         />
-      ))
-   );
 
    return (
       <>

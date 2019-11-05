@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import * as React from 'react';
 
 interface ErrorChipProps {
-   text?: string;
+   text?: string | boolean;
    displayTime?: number;
 }
 

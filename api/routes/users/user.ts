@@ -29,8 +29,8 @@ router.post('/checkueserindatabase', isUserInDatabase, (req: Request, res: Respo
 router.post(
    '/signup',
    isUserInDatabase,
-   userRequestValidator,
-   checkErrors,
+   // userRequestValidator,
+   // checkErrors,
    async (req: Request, res: Response) => {
       const user = await new User({...req.body, avatarColor: randomColor()});
       await user.save();
@@ -108,10 +108,10 @@ router.put(
          if (!req.profile) {
             throw new Error();
          }
-         const userUpdated = await User.findByIdAndUpdate(req.profile._id, {
+         const updatedUser = await User.findByIdAndUpdate(req.profile._id, {
             ...req.body, updated: Date.now(),
          });
-         res.status(200).json({ userUpdated });
+         res.status(200).json({ updatedUser });
       } catch (err) {
          return res.status(400).json({
             error: err,
