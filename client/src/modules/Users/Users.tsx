@@ -38,6 +38,7 @@ const Users = () => {
             margin: `${theme.spacing(1) / 2}px auto`,
             padding: theme.spacing(1, 1),
             position: 'relative',
+            minWidth: '322px',
          },
          root: {
             '&:hover': {
@@ -46,7 +47,6 @@ const Users = () => {
             },
             'backgroundColor': theme.palette.background.paper,
             'width': '100%',
-            maxWidth: '380px',
          },
          link: {
             '&:hover': {

@@ -120,7 +120,7 @@ const UserEdit: React.FC<UserEditProps> = ({ user }) => {
                            variant="caption"
                            display="block"
                            gutterBottom
-                           className={classes.updatedText}
+                           className={classes.updatedDateText}
                         >
                            updated {new Date(updated).toDateString()}
                         </Typography>

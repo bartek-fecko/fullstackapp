@@ -73,7 +73,9 @@ const UserProfile = () => {
                         <Tab label="Item Three" />
                      </Tabs>
                      <TabPanel value={value} index={0}>
-                        {(userProfile as C.UserProfileData).name && <UserEdit user={userProfile as C.UserProfileData} />}
+                        {(userProfile as C.UserProfileData).name && (
+                           <UserEdit user={userProfile as C.UserProfileData} />
+                        )}
                      </TabPanel>
                      <TabPanel value={value} index={1}>
                         <div>{JSON.stringify(userProfile)}</div>
@@ -83,7 +85,7 @@ const UserProfile = () => {
                </TabPanel>
                   </Paper>
                )
-               : (userProfile as C.UserProfileData).name && <UserEdit user={userProfile as C.UserProfileData} />
+               : (userProfile as C.UserProfileData).name && <div>user profile</div>
          }
       </>
    );

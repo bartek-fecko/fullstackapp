@@ -11,6 +11,9 @@ const mongoose = __importStar(require("mongoose"));
 const uuidV1 = require('uuid/v1');
 const crypto = require('crypto');
 const userSchema = new mongoose.Schema({
+    avatarColor: {
+        type: String,
+    },
     created: {
         deafult: Date.now(),
         type: Date,

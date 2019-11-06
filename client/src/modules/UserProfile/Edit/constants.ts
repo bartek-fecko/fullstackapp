@@ -39,7 +39,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
    submit: {
       margin: theme.spacing(3, 0, 2),
    },
-   updatedText: {
+   updatedDateText: {
       color: 'rgba(0, 0, 0, 0.54)',
    },
 }));
