@@ -11,7 +11,7 @@
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:front\"",
     "tsc": "tsc",
     "clean": "rimraf ./build",
-    "build": "tsc && node ./build/app.js",
+    "build": "",
 	  "start": "node ./build/app.js"
   },
   "dependencies": {
