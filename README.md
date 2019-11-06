@@ -19,6 +19,9 @@ Displaying errors, and sucessful messages
 
 Preview: https://herokusadfdsf.herokuapp.com/
 
+You can log in with this login and password, or create your own:
+login: bartlomiej.fecko@gmail.com password: bartek
+
 project uses final-form, material-ui, express, ts, react, redux, 
 
 
@@ -29,3 +32,4 @@ that mus be supplied when you want to use app.
 For some reason heroku can't build backend server(for now) so in order to publish app, it's needed to build it locally, using  `build:local` script before you push it to heroku.
 
 to run development server use `dev` script.
+
