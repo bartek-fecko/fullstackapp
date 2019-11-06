@@ -4,7 +4,6 @@ import AppState from '#/config/appState';
 import { requestUsers } from '#/store/UsersStore/actions';
 import { Grid, Link, Paper } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -13,6 +12,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { isArray } from 'util';
 import UsersSkeleton from './UsersSkeleton';
 
 const Users = () => {
@@ -44,8 +44,8 @@ const Users = () => {
                background: '#eee',
                cursor: 'pointer',
             },
-            "backgroundColor": theme.palette.background.paper,
-            "width": '100%',
+            'backgroundColor': theme.palette.background.paper,
+            'width': '100%',
             maxWidth: '380px',
          },
          link: {
@@ -73,7 +73,7 @@ const Users = () => {
                   </Grid>
                   <Grid container justify="center">
                      <Grid item xs={10} container direction="column" justify="center" alignItems="center"  >
-                        {users && users.map(({ _id, email, name, avatarColor }) => (
+                        {isArray(users) && users.map(({ _id, email, name, avatarColor }) => (
                            <Paper className={classes.paper} key={_id}>
                               <Link
                                  component={WithRouterLink}

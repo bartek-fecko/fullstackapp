@@ -37,7 +37,7 @@ app.get('/*', (req, res: Response) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-const port = process.env.PORT;
+const port = process.env.PORT || 1648;
 app.listen(port, () => {
   // tslint:disable-next-line: no-console
   console.log(`listening on port ${port}`);
