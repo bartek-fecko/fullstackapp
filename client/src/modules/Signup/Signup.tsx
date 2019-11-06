@@ -24,7 +24,7 @@ const SignUp: React.FC = () => {
 
    const onSubmit = async (values: C.UserReqisterData) => {
       try {
-         const response = await fetch(`http://localhost:${process.env.PORT}/api/users/signup`, {
+         const response = await fetch(`/api/users/signup`, {
             body: JSON.stringify({ ...values }),
             headers: {
                'Content-type': 'application/json; charset=UTF-8',

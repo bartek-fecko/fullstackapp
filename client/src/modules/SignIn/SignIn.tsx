@@ -31,7 +31,7 @@ const SignIn: React.FC = () => {
 
    const onSubmit = async (values: C.UserLoginData) => {
       try {
-         const response = await fetch(`http://localhost:${process.env.PORT}/api/users/signin`, {
+         const response = await fetch(`/api/users/signin`, {
             body: JSON.stringify({ ...values }),
             headers: {
                'Content-type': 'application/json; charset=UTF-8',

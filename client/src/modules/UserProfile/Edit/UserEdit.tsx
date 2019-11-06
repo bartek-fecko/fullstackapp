@@ -28,7 +28,7 @@ const UserEdit: React.FC<UserEditProps> = ({ user }) => {
 
    const onSubmit = async (values: UserProfileData) => {
       try {
-         const response = await fetch(`http://localhost:${process.env.PORT}/api/users/${params.userId}`, {
+         const response = await fetch(`/api/users/${params.userId}`, {
             body: JSON.stringify({ ...values }),
             headers: {
                'Authorization': `Bearer ${token}`,
