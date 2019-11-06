@@ -1,4 +1,6 @@
 # FullStackAPP
+![Images](https://github.com/bartek-fecko/fullstackapp/master/fulstackapp.png)
+
 features:
 register + login system with jwt: 
 register: 
