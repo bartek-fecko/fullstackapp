@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 const WithRouterLink = React.forwardRef<HTMLAnchorElement, RouterLinkProps>((props, ref) => (
-   <RouterLink innerRef={ref} {...props} />
+   <RouterLink to={props.to || '/'} innerRef={ref} {...props} />
 ));
 
 export default WithRouterLink;

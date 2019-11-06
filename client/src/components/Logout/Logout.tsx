@@ -20,7 +20,7 @@ const Logout = React.forwardRef<HTMLAnchorElement, RouterLinkProps>((props, ref)
                token: '',
                user: {},
             },
-            type: UserFromTokenTypes.SetUserAndToken,
+            type: UserFromTokenTypes.UpdateUserOrToken,
          } as UserFromTokenActions);
       } catch (err) {
          // tslint:disable-next-line: no-console

@@ -37,6 +37,9 @@ const NavBar: React.FC = () => {
          color: '#fff',
          marginRight: theme.spacing(1),
       },
+      noUnderscore: {
+         textDecoration: 'none',
+      },
    }));
    const classes = useStyles({});
 
@@ -52,7 +55,13 @@ const NavBar: React.FC = () => {
                   alignItems="center"
                >
                   <Grid item>
-                     <Typography variant="h6" color="inherit" noWrap>
+                     <Typography
+                        component={WithRouterLink}
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                        className={classes.noUnderscore}
+                     >
                         FullStackApp
                      </Typography>
                   </Grid>

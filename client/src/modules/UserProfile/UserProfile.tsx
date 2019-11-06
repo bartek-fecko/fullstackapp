@@ -58,30 +58,33 @@ const UserProfile = () => {
          {(!params.userId || !authoraized) && <Redirect to="/" />}
          {serverError
             ? <ErrorChip text={serverError} />
-            : userLoogedIn && userLoogedIn._id === userProfile._id && (
-               <Paper className={classes.root}>
-                  <Tabs
-                     value={value}
-                     onChange={handleChange}
-                     indicatorColor="primary"
-                     textColor="primary"
-                     centered
-                  >
-                     <Tab label="Edit"  icon={<EditOutlinedIcon />} />
-                     <Tab label="Profile" icon={<PersonOutlineOutlinedIcon />} />
-                     <Tab label="Item Three"/>
-                  </Tabs>
-                  <TabPanel value={value} index={0}>
-                     {(userProfile as C.UserProfileData).name && <UserEdit user={userProfile as C.UserProfileData} />}
-                  </TabPanel>
-                  <TabPanel value={value} index={1}>
-                     <div>{JSON.stringify(userProfile)}</div>
-                  </TabPanel>
-                  <TabPanel value={value} index={2}>
-                     Item Three
+            : (userLoogedIn && userLoogedIn._id === userProfile._id)
+               ? (
+                  <Paper className={classes.root}>
+                     <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        centered
+                     >
+                        <Tab label="Edit" icon={<EditOutlinedIcon />} />
+                        <Tab label="Profile" icon={<PersonOutlineOutlinedIcon />} />
+                        <Tab label="Item Three" />
+                     </Tabs>
+                     <TabPanel value={value} index={0}>
+                        {(userProfile as C.UserProfileData).name && <UserEdit user={userProfile as C.UserProfileData} />}
+                     </TabPanel>
+                     <TabPanel value={value} index={1}>
+                        <div>{JSON.stringify(userProfile)}</div>
+                     </TabPanel>
+                     <TabPanel value={value} index={2}>
+                        Item Three
                </TabPanel>
-               </Paper>
-            )}
+                  </Paper>
+               )
+               : (userProfile as C.UserProfileData).name && <UserEdit user={userProfile as C.UserProfileData} />
+         }
       </>
    );
 };

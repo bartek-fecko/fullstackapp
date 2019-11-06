@@ -7,6 +7,12 @@ module.exports = merge(common, {
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     hot: true,
+    proxy: {
+      '/api': {
+        target: `http://localhost:1648`,
+        changeOrigin: false
+      }
+    }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
