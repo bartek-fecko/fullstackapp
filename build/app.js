@@ -35,7 +35,7 @@ app.use('/api', errorRoutes);
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
-const port = process.env.PORT || 1648;
+const port = process.env.PORT;
 app.listen(port, () => {
     // tslint:disable-next-line: no-console
     console.log(`listening on port ${port}`);

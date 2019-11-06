@@ -11,9 +11,9 @@ login:
    - logout system
 
 user sytem:
-
    - adding and updating user profile
    - image or user first letter as placeholder if img not 
+   - skeleton for users display added
 
 Displaying errors, and sucessful messages 
 
