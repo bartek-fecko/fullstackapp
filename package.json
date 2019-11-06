@@ -13,7 +13,8 @@
     "clean": "rimraf ./build",
     "local:build": "tsc && cd client && npm run build",
     "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run tsc"
+    "heroku-postbuild": "npm run tsc",
+	  "start": "node ./build/app.js"
   },
   "dependencies": {
     "@material-ui/lab": "^4.0.0-alpha.30",
