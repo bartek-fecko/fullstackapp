@@ -13,7 +13,7 @@ login:
 user sytem:
    - adding and updating user profile
    - image or user first letter as placeholder if img not 
-   - skeleton for users display added
+   - skeleton lodaer when waiting for users
 
 Displaying errors, and sucessful messages 
 
