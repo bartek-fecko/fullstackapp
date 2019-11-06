@@ -73,7 +73,7 @@ const Users = () => {
                   </Grid>
                   <Grid container justify="center">
                      <Grid item xs={10} container direction="column" justify="center" alignItems="center"  >
-                        {isArray(users) && users.map(({ _id, email, name, avatarColor }) => (
+                        {isArray(users) && users.map(({ _id, email, name, avatarColor, userDescription }) => (
                            <Paper className={classes.paper} key={_id}>
                               <Link
                                  component={WithRouterLink}
@@ -103,7 +103,7 @@ const Users = () => {
                                                    className={classes.secendaryText}
                                                    color="textSecondary"
                                                 >
-                                                   {'I\'ll be in your neighborhood doing errands this…'}
+                                                   {userDescription || 'I don\t say anything..'}
                                                 </Typography>
                                              </>
                                           }

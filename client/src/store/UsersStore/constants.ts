@@ -24,6 +24,8 @@ export interface Users {
    name: string;
    email: string;
    avatarColor: string;
+   userDescription?: string;
+   image?: string;
 }
 
 export interface UsersState {

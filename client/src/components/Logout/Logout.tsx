@@ -14,7 +14,7 @@ const Logout = React.forwardRef<HTMLAnchorElement, RouterLinkProps>((props, ref)
    const logout = async () => {
       try {
          setToken('');
-         await fetch('http://localhost:3000/api/users/logout');
+         await fetch('/api/users/logout');
          dispatch({
             loggedUser: {
                token: '',
