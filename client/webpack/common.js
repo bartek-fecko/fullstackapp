@@ -9,6 +9,12 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:1648',
+        changeOrigin: true
+      }
+    }
   },
   resolve: {
     alias: {
