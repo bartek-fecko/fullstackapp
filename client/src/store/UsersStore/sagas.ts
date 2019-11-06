@@ -4,7 +4,7 @@ import * as C from './constants';
 
 const getUsers = async () => {
    try {
-      const response = await fetch(`http://localhost:${process.env.PORT}/api/users/`, {
+      const response = await fetch(`/api/users/`, {
          headers: {
             'Content-type': 'application/json; charset=UTF-8',
          },
