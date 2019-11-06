@@ -17,4 +17,15 @@ user sytem:
 
 Displaying errors, and sucessful messages 
 
+Preview: https://herokusadfdsf.herokuapp.com/
+
 project uses final-form, material-ui, express, ts, react, redux, 
+
+
+project uses enviroment variables:
+`MONGO_DB_URI(mongodb database adress), PORT(port to listen), JWT_SECRET(any secret key)`
+that mus be supplied when you want to use app.
+
+For some reason heroku can't build backend server(for now) so in order to publish app, it's needed to build it locally, using  `build:local` script before you push it to heroku.
+
+to run development server use `dev` script.

@@ -31,7 +31,7 @@ const UserProfile = () => {
 
    const getUser = async () => {
       try {
-         const response = await fetch(`http://localhost:3000/api/users/${params.userId}`, {
+         const response = await fetch(`http://localhost:${process.env.PORT}/api/users/${params.userId}`, {
             headers: {
                'Authorization': `Bearer ${token}`,
                'Content-type': 'application/json; charset=UTF-8',
