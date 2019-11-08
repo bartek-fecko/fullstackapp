@@ -11,7 +11,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: `http://localhost:${process.env.PORT}`,
+        target: `http://127.0.0.1:${process.env.PORT}`,
         changeOrigin: true
       }
     }

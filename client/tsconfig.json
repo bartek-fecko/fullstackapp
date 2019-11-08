@@ -4,12 +4,14 @@
         "sourceMap": true,
         "noImplicitAny": false,
         "module": "commonjs",
-        "target": "es5",
+        "target": "es6",
         "jsx": "react",
         "lib": [
             "es5",
             "es6",
-            "dom"
+            "dom",
+            "dom.iterable",
+            "esnext",
         ],
         "baseUrl": "./",
         "paths": {

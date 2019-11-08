@@ -5,7 +5,9 @@ import User from '../../db/models/user/user';
 import { IUser } from './../../db/models/user/constants';
 import * as C from './constants';
 
-export const userById = ((req: C.UserByIdRequest, res: Response, next: NextFunction, id) => {
+export const userById = ((
+   req: C.UserByIdRequest, res: Response, next: NextFunction, id: string,
+) => {
    User.findById(id).exec((err: Error, user: IUser) => {
       if (err) {
          return res.status(500).json({
@@ -17,8 +19,7 @@ export const userById = ((req: C.UserByIdRequest, res: Response, next: NextFunct
             error: C.UserAuthErros.UserDoesNotExists,
          });
       }
-      (user.passwordHash as any) = null;
-      req.profile = user;
+      req.profile = user._doc;
       next();
    });
 });

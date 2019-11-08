@@ -8,11 +8,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isArray } from 'util';
+import * as C from './constants';
 import UsersSkeleton from './UsersSkeleton';
 
 const Users = () => {
@@ -25,41 +25,7 @@ const Users = () => {
       dispatch(requestUsers());
    }, []);
 
-   const useStyles = makeStyles((theme: Theme) =>
-      createStyles({
-         header: {
-            margin: `${theme.spacing(1)}px 0`,
-         },
-         secendaryText: {
-            display: 'inline',
-            marginTop: '20px',
-         },
-         paper: {
-            margin: `${theme.spacing(1) / 2}px auto`,
-            padding: theme.spacing(1, 1),
-            position: 'relative',
-            minWidth: '322px',
-         },
-         root: {
-            '&:hover': {
-               background: '#eee',
-               cursor: 'pointer',
-            },
-            'backgroundColor': theme.palette.background.paper,
-            'width': '100%',
-         },
-         link: {
-            '&:hover': {
-               textDecoration: 'none',
-            },
-         },
-         listItem: {
-            width: '100%',
-         },
-      }),
-   );
-
-   const classes = useStyles({});
+   const classes = C.useStyles({});
 
    return (
       <>

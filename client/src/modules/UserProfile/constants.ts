@@ -1,13 +1,13 @@
 import { makeStyles } from '@material-ui/styles';
 
-export  interface UserProfileData {
+export interface UserProfileData {
    _id: string;
    name: string;
    email: string;
    updated?: string;
    userDescription?: string;
    avatarColor: string;
-   image?: string;
+   hasPhoto: boolean;
 }
 
 export const useStyles = makeStyles({
@@ -17,7 +17,7 @@ export const useStyles = makeStyles({
    },
 });
 
-export  const a11yProps = (index: any) => ({
+export const a11yProps = (index: any) => ({
    'aria-controls': `simple-tabpanel-${index}`,
    'id': `simple-tab-${index}`,
 });

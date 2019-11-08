@@ -11,6 +11,7 @@ import { Redirect, useParams } from 'react-router';
 import * as C from './constants';
 import UserEdit from './Edit/UserEdit';
 import TabPanel from './TabPanel';
+import UserProfilePage from './UserProfilePage/UserProfilePage';
 
 const UserProfile = () => {
    const userLoogedIn = useSelector((state: AppState) => state.userWithToken.loggedUser.user);
@@ -34,7 +35,7 @@ const UserProfile = () => {
          const response = await fetch(`/api/users/${params.userId}`, {
             headers: {
                'Authorization': `Bearer ${token}`,
-               'Content-type': 'application/json; charset=UTF-8',
+               'Accept': 'application/json',
             },
          });
          const data = await response.json();
@@ -42,11 +43,12 @@ const UserProfile = () => {
          if (data.error) {
             return setServerError(data.error);
          }
-
          setUserProfile(data);
       } catch (err) {
-         if (err) {
-            return setServerError(err);
+         if (err.message) {
+            setServerError(err.message);
+         } else {
+            setServerError(JSON.stringify(err));
          }
       }
    };
@@ -78,7 +80,7 @@ const UserProfile = () => {
                         )}
                      </TabPanel>
                      <TabPanel value={value} index={1}>
-                        <div>{JSON.stringify(userProfile)}</div>
+                        <UserProfilePage />
                      </TabPanel>
                      <TabPanel value={value} index={2}>
                         Item Three

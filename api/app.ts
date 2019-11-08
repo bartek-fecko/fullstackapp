@@ -9,6 +9,7 @@ const app: Application = express();
 dotenv.config({ path: './.env' });
 
 mongoose.connect(process.env.MONGO_DB_URI, {
+  useFindAndModify: false,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -19,7 +20,7 @@ mongoose.connect(process.env.MONGO_DB_URI, {
 mongoose.connection.on('error', (err: Error) => console.log('db error:' + err));
 
 const postRoutes = require('./routes/posts/post').router;
-const userRoutes = require('./routes/users/user').router;
+const userRoutes = require('./routes/users/users').router;
 const errorRoutes = require('./routes/errors/error').notAuthorizedErrorRoute;
 
 app.use(cors());
@@ -38,7 +39,9 @@ app.get('/*', (req, res: Response) => {
 });
 
 const port = process.env.PORT;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   // tslint:disable-next-line: no-console
   console.log(`listening on port ${port}`);
 });
+
+server.timeout = 1000 * 10;

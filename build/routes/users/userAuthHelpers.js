@@ -26,8 +26,7 @@ exports.userById = ((req, res, next, id) => {
                 error: C.UserAuthErros.UserDoesNotExists,
             });
         }
-        user.passwordHash = null;
-        req.profile = user;
+        req.profile = user._doc;
         next();
     });
 });

@@ -25,6 +25,8 @@ export type UserProfileDataErrors = {
 export const useStyles = makeStyles((theme: Theme) => ({
    avatar: {
       backgroundColor: theme.palette.secondary.main,
+      width: '120px',
+      height: '120px',
       margin: theme.spacing(1),
    },
    form: {
@@ -41,5 +43,12 @@ export const useStyles = makeStyles((theme: Theme) => ({
    },
    updatedDateText: {
       color: 'rgba(0, 0, 0, 0.54)',
+   },
+   imageWrapper: {
+      position: 'relative',
+   },
+   photoIcon: {
+      width: '100%',
+      margin: 'auto',
    },
 }));

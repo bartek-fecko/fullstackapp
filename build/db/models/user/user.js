@@ -7,6 +7,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// tslint:disable: object-literal-sort-keys
 const mongoose = __importStar(require("mongoose"));
 const uuidV1 = require('uuid/v1');
 const crypto = require('crypto');
@@ -33,6 +34,14 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         type: String,
+    },
+    photo: {
+        contentType: String,
+        data: Buffer,
+    },
+    hasPhoto: {
+        contentType: Boolean,
+        deafult: false,
     },
     updated: {
         type: Date,

@@ -13,6 +13,7 @@ const path = require('path');
 const app = express_1.default();
 dotenv.config({ path: './.env' });
 mongoose.connect(process.env.MONGO_DB_URI, {
+    useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -21,7 +22,7 @@ mongoose.connect(process.env.MONGO_DB_URI, {
     .catch((err) => console.log(err));
 mongoose.connection.on('error', (err) => console.log('db error:' + err));
 const postRoutes = require('./routes/posts/post').router;
-const userRoutes = require('./routes/users/user').router;
+const userRoutes = require('./routes/users/users').router;
 const errorRoutes = require('./routes/errors/error').notAuthorizedErrorRoute;
 app.use(cors());
 app.use(morgan('dev'));
@@ -36,7 +37,8 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 const port = process.env.PORT;
-app.listen(port, () => {
+const server = app.listen(port, () => {
     // tslint:disable-next-line: no-console
     console.log(`listening on port ${port}`);
 });
+server.timeout = 1000 * 10;

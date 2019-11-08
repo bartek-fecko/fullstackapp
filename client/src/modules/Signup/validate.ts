@@ -3,7 +3,7 @@ import * as C from './constants';
 
 export const checkEmailExists = async (email: string) => {
    try {
-      const response = await fetch('http://localhost:3000/api/users/checkueserindatabase', {
+      const response = await fetch('/api/users/checkueserindatabase', {
          body: JSON.stringify({ email }),
          headers: {
             'Content-type': 'application/json; charset=UTF-8',

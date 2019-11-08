@@ -1,3 +1,4 @@
+// tslint:disable: object-literal-sort-keys
 import * as mongoose from 'mongoose';
 const uuidV1 = require('uuid/v1');
 const crypto = require('crypto');
@@ -25,6 +26,14 @@ const userSchema = new mongoose.Schema({
       required: true,
       trim: true,
       type: String,
+   },
+   photo: {
+      contentType: String,
+      data: Buffer,
+   },
+   hasPhoto: {
+      contentType: Boolean,
+      deafult: false,
    },
    updated: {
       type: Date,
