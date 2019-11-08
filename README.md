@@ -1,5 +1,6 @@
 # FullStackAPP
 ![Images](https://github.com/bartek-fecko/fullstackapp/blob/master/fulstackapp.png)
+A fullstack app. It offers to send posts, edit them, create and manage profile. Sending messages with other users. Project is built with webpack express, and react. 
 
 features:
 register + login system with jwt: 
@@ -15,16 +16,18 @@ login:
 user sytem:
    - adding and updating user profile
    - image or user first letter as placeholder if img not 
-   - skeleton lodaer when waiting for users
+   - skeleton loader when waiting for users
+   - uploading and changing user image
 
-Displaying errors, and sucessful messages 
+Displaying errors, and sucessful messages for all informations.
+
+project uses final-form, material-ui, express, ts, react, redux, saga
 
 Preview: https://herokusadfdsf.herokuapp.com/
 
 You can log in with this login and password, or create your own:
 login: bartlomiej.fecko@gmail.com password: bartek
 
-project uses final-form, material-ui, express, ts, react, redux, 
 
 
 project uses enviroment variables:
