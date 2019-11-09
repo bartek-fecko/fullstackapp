@@ -1,8 +1,10 @@
 import ErrorChip from '#/components/ErrorChip/ErrorChip';
 import AppState from '#/config/appState';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Grid from '@material-ui/core/Grid';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
@@ -10,24 +12,29 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router'
 import { UserProfileData } from '../constants';
 import * as C from './constants';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+
 export interface UserProfilePageProps {
    user: UserProfileData;
+   loggedInUserPofile?: boolean;
 }
 
-const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }) => {
-   const { _id, name, hasPhoto, email, avatarColor, updated, joined, userDescription } = user;
-   // const userLoogedIn = useSelector((state: AppState) => state.userWithToken.loggedUser.user);
-   // const token = useSelector((state: AppState) => state.userWithToken.loggedUser.token);
-   // const [userProfile, setUserProfile] = React.useState<{ _id: string } | C.UserProfileData>({ _id: null });
-   // const [authoraized, setAuthorized] = React.useState(true);
-   // const [serverError, setServerError] = React.useState<string | boolean>(false);
-   // const params: { userId?: string } = useParams();
-   // const [value, setValue] = React.useState(0);
+const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPofile }) => {
+   const token = useSelector((state: AppState) => state.userWithToken.loggedUser.token);
+   const [isFollowing, setFollowing] = React.useState(
+      user.followers.find((follower) => follower._id === user._id),
+   );
 
-   // const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-   //    setValue(newValue);
-   // };
+   const {
+      _id,
+      name,
+      hasPhoto,
+      email,
+      avatarColor,
+      updated,
+      joined,
+      userDescription,
+      followers,
+   } = user;
 
    const classes = C.useStyles({});
 
@@ -90,11 +97,26 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }) => {
                            email: {email}
                         </Typography>
                      </Grid>
-                     <Grid item>
-                        <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                           Follow
-                         </Typography>
-                     </Grid>
+                     {!loggedInUserPofile && !isFollowing && (
+                        <Grid item container alignItems="baseline">
+                           <Typography variant="body2" className={classes.pointerCursor}>
+                              <Button
+                                 variant="outlined"
+                                 size="small"
+                              >
+                                 Follow
+                           </Button>
+                           </Typography>
+                           {isFollowing && (
+                              <Typography
+                                 variant="body2"
+                                 className={`${classes.unfollowButton} ${classes.pointerCursor}`}
+                              >
+                                 unfollow
+                           </Typography>
+                           )}
+                        </Grid>
+                     )}
                   </Grid>
                </Grid>
             </Grid>

@@ -11,12 +11,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = __importStar(require("mongoose"));
 const uuidV1 = require('uuid/v1');
 const crypto = require('crypto');
+const { ObjectId } = mongoose.Schema;
 const userSchema = new mongoose.Schema({
     avatarColor: {
         type: String,
     },
-    created: {
-        deafult: Date.now(),
+    joined: {
+        default: Date.now(),
         type: Date,
     },
     email: {
@@ -50,6 +51,14 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     salt: String,
+    following: [{
+            type: ObjectId,
+            ref: 'User',
+        }],
+    followers: [{
+            type: ObjectId,
+            ref: 'User',
+        }],
 });
 userSchema.virtual('password')
     .set(function (password) {

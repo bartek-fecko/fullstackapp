@@ -45,7 +45,7 @@ const router = express_1.default.Router();
 exports.router = router;
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield user_1.default.find().select('name email updated avatarColor');
+        const users = yield user_1.default.find().select('name email updated avatarColor hasPhoto');
         res.status(200).json(users);
     }
     catch (err) {
@@ -114,7 +114,7 @@ router.delete('/:userId', userAuthHelpers_1.isUserSignIn, (req, res) => __awaite
     const userId = user && user._id;
     try {
         if (user) {
-            yield user.remove();
+            yield user_1.default.findByIdAndDelete(userId);
             res.status(200).json({ _id: userId });
         }
     }

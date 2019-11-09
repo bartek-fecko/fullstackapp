@@ -104,7 +104,7 @@ router.delete(
       const userId = user && user._id;
       try {
          if (user) {
-            await user.remove();
+            await User.findByIdAndDelete(userId);
             res.status(200).json({ _id: userId });
          }
       } catch (err) {

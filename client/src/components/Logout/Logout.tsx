@@ -1,4 +1,4 @@
-import { UserFromTokenActions, UserFromTokenTypes } from '#/store/JwtStore/constants';
+import { updateUserOrToken } from '#/store/JwtStore/actions';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -15,13 +15,7 @@ const Logout = React.forwardRef<HTMLAnchorElement, RouterLinkProps>((props, ref)
       try {
          setToken('');
          await fetch('/api/users/logout');
-         dispatch({
-            loggedUser: {
-               token: '',
-               user: {},
-            },
-            type: UserFromTokenTypes.UpdateUserOrToken,
-         } as UserFromTokenActions);
+         dispatch(updateUserOrToken({ token: '', user: {} }));
       } catch (err) {
          // tslint:disable-next-line: no-console
          console.error(err);

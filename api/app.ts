@@ -46,3 +46,6 @@ const server = app.listen(port, () => {
 });
 
 server.timeout = 1000 * 10;
+if (process.env.NODE_ENV === 'development') {
+  server.timeout = 1000 * 15;
+}
