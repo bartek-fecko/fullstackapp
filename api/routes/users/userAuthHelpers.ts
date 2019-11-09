@@ -16,6 +16,7 @@ export const userById = ((
             error: htttpErrors.error500,
          });
       }
+
       if (!user) {
          return res.status(400).json({
             error: C.UserAuthErros.UserDoesNotExists,

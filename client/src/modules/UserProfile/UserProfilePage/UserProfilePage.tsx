@@ -21,7 +21,7 @@ export interface UserProfilePageProps {
 const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPofile }) => {
    const token = useSelector((state: AppState) => state.userWithToken.loggedUser.token);
    const [isFollowing, setFollowing] = React.useState(
-      user.followers.find((follower) => follower._id === user._id),
+      user.followers && user.followers.find((follower) => follower._id === user._id),
    );
 
    const {
