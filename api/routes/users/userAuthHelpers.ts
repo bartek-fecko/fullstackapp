@@ -8,7 +8,10 @@ import * as C from './constants';
 export const userById = ((
    req: C.UserByIdRequest, res: Response, next: NextFunction, id: string,
 ) => {
-   User.findById(id).exec((err: Error, user: IUser) => {
+   User.findById(id)
+   .populate('following', '_id name')
+   .populate('followers', '_id name')
+   .exec((err: Error, user: IUser) => {
       if (err) {
          return res.status(500).json({
             error: htttpErrors.error500,

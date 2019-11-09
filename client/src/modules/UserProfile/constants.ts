@@ -7,6 +7,7 @@ export interface UserProfileData {
    updated?: string;
    userDescription?: string;
    avatarColor: string;
+   joined: string;
    hasPhoto: boolean;
 }
 

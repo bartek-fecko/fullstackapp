@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
    try {
-      const users = await User.find().select('name email updated avatarColor');
+      const users = await User.find().select('name email updated avatarColor hasPhoto');
       res.status(200).json(users);
    } catch (err) {
       res.status(400).json({

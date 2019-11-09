@@ -25,6 +25,7 @@ export interface Users {
    email: string;
    avatarColor: string;
    userDescription?: string;
+   hasPhoto?: boolean;
    image?: string;
 }
 

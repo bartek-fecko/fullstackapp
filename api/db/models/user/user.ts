@@ -2,13 +2,14 @@
 import * as mongoose from 'mongoose';
 const uuidV1 = require('uuid/v1');
 const crypto = require('crypto');
+const { ObjectId } = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
    avatarColor: {
       type: String,
    },
-   created: {
-      deafult: Date.now(),
+   joined: {
+      default: Date.now(),
       type: Date,
    },
    email: {
@@ -42,15 +43,23 @@ const userSchema = new mongoose.Schema({
       type: String,
    },
    salt: String,
+   following: [{
+      type: ObjectId,
+      ref: 'User',
+   }],
+   followers: [{
+      type: ObjectId,
+      ref: 'User',
+   }],
 });
 
 userSchema.virtual('password')
-   .set(function(password: string) {
+   .set(function (password: string) {
       this.tempPassword = password;
       this.salt = uuidV1();
       this.passwordHash = this.encryptPassword(password);
    })
-   .get(function() {
+   .get(function () {
       return this.tempPassword;
    });
 

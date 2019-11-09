@@ -34,8 +34,8 @@ const UserProfile = () => {
       try {
          const response = await fetch(`/api/users/${params.userId}`, {
             headers: {
-               'Authorization': `Bearer ${token}`,
-               'Accept': 'application/json',
+               Accept: 'application/json',
+               Authorization: `Bearer ${token}`,
             },
          });
          const data = await response.json();
@@ -80,14 +80,14 @@ const UserProfile = () => {
                         )}
                      </TabPanel>
                      <TabPanel value={value} index={1}>
-                        <UserProfilePage />
+                        <UserProfilePage user={userProfile as C.UserProfileData} />
                      </TabPanel>
                      <TabPanel value={value} index={2}>
                         Item Three
                </TabPanel>
                   </Paper>
                )
-               : (userProfile as C.UserProfileData).name && <div>user profile</div>
+               : (userProfile as C.UserProfileData).name && <UserProfilePage user={userProfile as C.UserProfileData}/>
          }
       </>
    );

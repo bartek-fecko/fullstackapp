@@ -1,17 +1,22 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme: Theme) =>
-createStyles({
-   avatar: {
-      margin: 10,
+export const useStyles = makeStyles((theme: Theme) => ({
+   avatarImg: {
+      height: '120px',
+      width: '120px',
    },
-   bigAvatar: {
-      height: 120,
-      margin: 10,
-      width: 120,
+   paper: {
+      margin: 'auto',
+      maxWidth: 500,
+      padding: theme.spacing(2),
    },
    root: {
       flexGrow: 1,
    },
-}),
-);
+   joinedDate: {
+      fontSize: '0.7rem',
+   },
+   userInfo: {
+      marginLeft: theme.spacing(4),
+   },
+}));

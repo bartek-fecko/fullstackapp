@@ -87,7 +87,7 @@ const UserEdit: React.FC<UserEditProps> = ({ user }) => {
       <>
          <Form
             onSubmit={onSubmit}
-            // validate={validate}
+            validate={validate}
             initialValues={user}
             render={({ handleSubmit, submitting, pristine }) => (
                <form onSubmit={handleSubmit} className={classes.form}>

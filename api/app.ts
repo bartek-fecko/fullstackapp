@@ -21,6 +21,7 @@ mongoose.connection.on('error', (err: Error) => console.log('db error:' + err));
 
 const postRoutes = require('./routes/posts/post').router;
 const userRoutes = require('./routes/users/users').router;
+const followingRoutes = require('./routes//users/followers').router;
 const errorRoutes = require('./routes/errors/error').notAuthorizedErrorRoute;
 
 app.use(cors());
@@ -31,7 +32,7 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use('/api/posts', postRoutes);
-app.use('/api/users', userRoutes);
+app.use('/api/users', userRoutes, followingRoutes);
 app.use('/api', errorRoutes);
 
 app.get('/*', (req, res: Response) => {

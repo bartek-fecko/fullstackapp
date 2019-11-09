@@ -39,7 +39,7 @@ const Users = () => {
                   </Grid>
                   <Grid container justify="center">
                      <Grid item xs={10} container direction="column" justify="center" alignItems="center"  >
-                        {isArray(users) && users.map(({ _id, email, name, avatarColor, userDescription }) => (
+                        {isArray(users) && users.map(({ _id, hasPhoto, name, avatarColor, userDescription }) => (
                            <Paper className={classes.paper} key={_id}>
                               <Link
                                  component={WithRouterLink}
@@ -54,7 +54,7 @@ const Users = () => {
                                           <Avatar
                                              style={{ background: avatarColor }}
                                              alt={name.charAt(0).toUpperCase()}
-                                             src={null}
+                                             src={hasPhoto ? `/api/users/photo/${_id}` : null}
                                           >
                                              {name.charAt(0).toUpperCase()}
                                           </Avatar>
