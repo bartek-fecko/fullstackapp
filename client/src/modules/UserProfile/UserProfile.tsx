@@ -9,6 +9,7 @@ import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router';
+import useLocalStorage from 'react-use-localstorage';
 import * as C from './constants';
 import UserDelete from './Delete/UserDelete';
 import UserEdit from './Edit/UserEdit';
@@ -17,7 +18,7 @@ import UserProfilePage from './UserProfilePage/UserProfilePage';
 
 const UserProfile = () => {
    const userLoogedIn = useSelector((state: AppState) => state.userWithToken.loggedUser.user);
-   const token = useSelector((state: AppState) => state.userWithToken.loggedUser.token);
+   const [token] = useLocalStorage('jwt-token', '');
    const [userProfile, setUserProfile] = React.useState<{ _id: string } | C.UserProfileData>({ _id: null });
    const [authoraized, setAuthorized] = React.useState(true);
    const [serverError, setServerError] = React.useState<string | boolean>(false);

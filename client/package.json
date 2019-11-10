@@ -71,6 +71,7 @@
     "react-redux": "^7.1.1",
     "react-use-localstorage": "^3.3.2",
     "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.1",
     "rimraf": "^3.0.0"
   }
