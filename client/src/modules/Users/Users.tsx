@@ -38,47 +38,60 @@ const Users = () => {
                      </Typography>
                   </Grid>
                   <Grid container justify="center">
-                     <Grid item xs={10} container direction="column" justify="center" alignItems="center"  >
-                        {isArray(users) && users.map(({ _id, hasPhoto, name, avatarColor, userDescription }) => (
-                           <Paper className={classes.paper} key={_id}>
-                              <Link
-                                 component={WithRouterLink}
-                                 to={`/users/${_id}`}
-                                 color="inherit"
-                                 variant="body2"
-                                 className={classes.link}
-                              >
-                                 <List className={classes.root} key={_id}>
-                                    <ListItem alignItems="flex-start" className={classes.listItem}>
-                                       <ListItemAvatar>
-                                          <Avatar
-                                             style={{ background: avatarColor }}
-                                             alt={name.charAt(0).toUpperCase()}
-                                             src={hasPhoto ? `/api/users/photo/${_id}` : null}
-                                          >
-                                             {name.charAt(0).toUpperCase()}
-                                          </Avatar>
-                                       </ListItemAvatar>
-                                       <ListItemText
-                                          primary={name}
-                                          secondary={
-                                             <>
-                                                <Typography
-                                                   component="span"
-                                                   variant="body2"
-                                                   className={classes.secendaryText}
-                                                   color="textSecondary"
+                     <Grid
+                        item
+                        xs={10}
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                        wrap="nowrap"
+                     >
+                        {isArray(users) && users.map(({
+                           _id, hasPhoto, name, avatarColor, userDescription,
+                        }) => (
+                              <Paper className={classes.paper} key={_id}>
+                                 <Grid item zeroMinWidth className={classes.userElementRoot}>
+                                    <Link
+                                       component={WithRouterLink}
+                                       to={`/users/${_id}`}
+                                       color="inherit"
+                                       variant="body2"
+                                       className={classes.link}
+                                    >
+                                       <List className={classes.root} key={_id}>
+                                          <ListItem alignItems="flex-start" className={classes.listItem}>
+                                             <ListItemAvatar>
+                                                <Avatar
+                                                   style={{ background: avatarColor }}
+                                                   alt={name.charAt(0).toUpperCase()}
+                                                   src={hasPhoto ? `/api/users/photo/${_id}` : null}
                                                 >
-                                                   {userDescription || 'I don\t say anything..'}
-                                                </Typography>
-                                             </>
-                                          }
-                                       />
-                                    </ListItem>
-                                 </List>
-                              </Link>
-                           </Paper>
-                        ))}
+                                                   {name.charAt(0).toUpperCase()}
+                                                </Avatar>
+                                             </ListItemAvatar>
+                                             <ListItemText
+                                                primary={name}
+                                                secondary={
+                                                   <>
+                                                      <Typography
+                                                         component="span"
+                                                         variant="body2"
+                                                         className={classes.secendaryText}
+                                                         color="textSecondary"
+                                                         noWrap
+                                                      >
+                                                         {userDescription || 'I don\t say anything..'}
+                                                      </Typography>
+                                                   </>
+                                                }
+                                             />
+                                          </ListItem>
+                                       </List>
+                                    </Link>
+                                 </Grid>
+                              </Paper>
+                           ))}
                      </Grid>
                   </Grid>
                </Grid>

@@ -45,7 +45,7 @@ const router = express_1.default.Router();
 exports.router = router;
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield user_1.default.find().select('name email updated avatarColor hasPhoto');
+        const users = yield user_1.default.find().select('name email updated avatarColor hasPhoto userDescription');
         res.status(200).json(users);
     }
     catch (err) {

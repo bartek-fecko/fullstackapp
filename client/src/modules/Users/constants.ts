@@ -1,3 +1,4 @@
+// tslint:disable: object-literal-sort-keys
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme: Theme) =>
@@ -14,6 +15,10 @@ export const useStyles = makeStyles((theme: Theme) =>
          padding: theme.spacing(1, 1),
          position: 'relative',
          minWidth: '322px',
+      },
+      userElementRoot: {
+         overflow: 'hidden',
+         width: '322px',
       },
       root: {
          '&:hover': {
