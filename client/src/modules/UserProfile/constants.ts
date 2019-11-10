@@ -8,7 +8,8 @@ export interface UserProfileData {
    userDescription?: string;
    avatarColor: string;
    joined: string;
-   followers: UserProfileData[];
+   followers: Partial<UserProfileData>[];
+   following: Partial<UserProfileData>[];
    hasPhoto: boolean;
 }
 

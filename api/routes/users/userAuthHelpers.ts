@@ -18,7 +18,7 @@ export const userById = ((
          });
       }
 
-      if (!user) {
+      if (!user) {console.log('1', user)
          return res.status(400).json({
             error: C.UserAuthErros.UserDoesNotExists,
          });

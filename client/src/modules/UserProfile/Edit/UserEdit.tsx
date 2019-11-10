@@ -83,12 +83,14 @@ const UserEdit: React.FC<UserEditProps> = ({ user }) => {
          ? `/api/users/photo/${_id}`
          : null;
 
+   const { following, followers, ...restUserFields } = user;
+
    return (
       <>
          <Form
             onSubmit={onSubmit}
             validate={validate}
-            initialValues={user}
+            initialValues={restUserFields}
             render={({ handleSubmit, submitting, pristine }) => (
                <form onSubmit={handleSubmit} className={classes.form}>
                   <Container component="main" maxWidth="xs">

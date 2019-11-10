@@ -25,6 +25,7 @@ exports.userById = ((req, res, next, id) => {
             });
         }
         if (!user) {
+            console.log('1', user);
             return res.status(400).json({
                 error: C.UserAuthErros.UserDoesNotExists,
             });

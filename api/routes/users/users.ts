@@ -123,6 +123,7 @@ router.put(
       form.keepExtensions = true;
       form.maxFileSize = 50 * 1024 * 1024;
       form.parse(req, async (err: any, fields: Fields, files: Files) => {
+         console.log('2',err)
          if (err) {
             return res.status(400).json({
                error: err,
@@ -155,7 +156,7 @@ router.put(
 
             const { photo, passwordHash, salt, ...restData } = updatedUser._doc;
             res.status(200).json({ ...restData });
-         } catch (err) {
+         } catch (err) {console.log('3', err)
             return res.status(400).json({
                error: err,
             });
