@@ -1,5 +1,8 @@
 import ErrorChip from '#/components/ErrorChip/ErrorChip';
 import AppState from '#/config/appState';
+import { setUserAndToken } from '#/store/JwtStore/actions';
+import { LoggedUser } from '#/store/JwtStore/constants';
+import dispatchInsideEffect from '#/utils/dispatchInsideEffect';
 import userAndToken from '#/utils/userAndToken';
 import Paper from '@material-ui/core/Paper';
 import Tab from '@material-ui/core/Tab';
@@ -8,17 +11,13 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router';
-import useLocalStorage from 'react-use-localstorage';
 import * as C from './constants';
 import UserDelete from './Delete/UserDelete';
 import UserEdit from './Edit/UserEdit';
 import TabPanel from './TabPanel';
 import UserProfilePage from './UserProfilePage/UserProfilePage';
-import dispatchInsideEffect from '#/utils/dispatchInsideEffect';
-import { setUserAndToken } from '#/store/JwtStore/actions';
-import { LoggedUser } from '#/store/JwtStore/constants';
 
 const UserProfile = () => {
    const userLoogedIn = useSelector((state: AppState) => state.userWithToken.loggedUser.user);

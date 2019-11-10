@@ -48,6 +48,7 @@ const setFollower = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             .populate('followers', '_id name')
             .exec();
         const followerResult = Object.assign({}, result);
+        delete followerResult.photo;
         delete followerResult.salt;
         delete followerResult.passwordHash;
         return res.status(Object.assign({}, followerResult));
@@ -98,5 +99,5 @@ const deleteFollower = (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
 });
-router.put('user/follow', userAuthHelpers_1.isUserSignIn, setFollowing, setFollower);
-router.put('user/unfollow', userAuthHelpers_1.isUserSignIn, deleteFollowing, deleteFollower);
+router.put('/user/follow', userAuthHelpers_1.isUserSignIn, setFollowing, setFollower);
+router.put('/user/unfollow', userAuthHelpers_1.isUserSignIn, deleteFollowing, deleteFollower);

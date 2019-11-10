@@ -12,7 +12,7 @@ export function requestUserById(id: string) {
    } as C.UsersActions;
 }
 
-export function requestUsersSucess(data: C.Users[]) {
+export function requestUsersSucess(data: C.User[]) {
    return {
       data,
       isLoading: false,

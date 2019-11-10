@@ -13,13 +13,13 @@ export type UsersActions = {
    // articlesPerPage: number;
 } | {
    type: UsersTypes.UsersRequestSucess;
-   data: Users[];
+   data: User[];
 } | {
    type: UsersTypes.UsersError;
    error: Error;
 };
 
-export interface Users {
+export interface User {
    _id: string;
    name: string;
    email: string;
@@ -27,11 +27,13 @@ export interface Users {
    userDescription?: string;
    hasPhoto?: boolean;
    image?: string;
+   followers?: any;
+   following?: any;
 }
 
 export interface UsersState {
    isLoading: boolean;
-   data: Users[];
+   data: User[];
    error: Error | false;
 }
 

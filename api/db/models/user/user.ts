@@ -43,14 +43,14 @@ const userSchema = new mongoose.Schema({
       type: String,
    },
    salt: String,
-   // following: [{
-   //    type: ObjectId,
-   //    ref: 'User',
-   // }],
-   // followers: [{
-   //    type: ObjectId,
-   //    ref: 'User',
-   // }],
+   following: [{
+      type: ObjectId,
+      ref: 'User',
+   }],
+   followers: [{
+      type: ObjectId,
+      ref: 'User',
+   }],
 });
 
 userSchema.virtual('password')

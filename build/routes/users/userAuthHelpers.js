@@ -16,6 +16,8 @@ const user_1 = __importDefault(require("../../db/models/user/user"));
 const C = __importStar(require("./constants"));
 exports.userById = ((req, res, next, id) => {
     user_1.default.findById(id)
+        .populate('following', '_id ')
+        .populate('followers', '_id ')
         .exec((err, user) => {
         if (err) {
             return res.status(500).json({

@@ -43,6 +43,7 @@ const setFollower = async (req: Request, res: Response) => {
          .exec();
 
       const followerResult = { ...result };
+      delete followerResult.photo;
       delete followerResult.salt;
       delete followerResult.passwordHash;
       return res.status({ ...followerResult });
@@ -104,14 +105,14 @@ const deleteFollower = async (req: Request, res: Response) => {
 };
 
 router.put(
-   'user/follow',
+   '/user/follow',
    isUserSignIn,
    setFollowing,
    setFollower,
 );
 
 router.put(
-   'user/unfollow',
+   '/user/unfollow',
    isUserSignIn,
    deleteFollowing,
    deleteFollower,

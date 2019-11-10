@@ -9,7 +9,8 @@ export const userById = ((
    req: C.UserByIdRequest, res: Response, next: NextFunction, id: string,
 ) => {
    User.findById(id)
-
+   .populate('following', '_id ')
+   .populate('followers', '_id ')
    .exec((err: Error, user: IUser) => {
       if (err) {
          return res.status(500).json({
