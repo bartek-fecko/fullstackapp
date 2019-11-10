@@ -22,6 +22,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
    const loggedInUser = useSelector((state: AppState) => state.userWithToken.loggedUser.user);
    const params: { userId?: string } = useParams();
    const [serverError, setServerError] = React.useState<string | boolean>(false);
+   const [isLoading, setLoading] = React.useState(false);
    const [isFollowing, setFollowing] = React.useState<any | false>(
       user.followers && user.followers.find((follower) => follower._id === loggedInUser._id),
    );
@@ -36,19 +37,24 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
       userDescription,
    } = user;
 
+   const followFetchOptions = {
+      headers: {
+         'Accept': 'application/json',
+         'Authorization': `Bearer ${token}`,
+         'Content-Type': 'application/json',
+      },
+      method: 'PUT',
+   };
+
    const followHandler = async () => {
       try {
+         setLoading(true);
          const response = await fetch('/api/users/user/follow', {
             body: JSON.stringify({
                followId: params.userId,
                userId: loggedInUser._id,
             }),
-            headers: {
-               'Accept': 'application/json',
-               'Authorization': `Bearer ${token}`,
-               'Content-Type': 'application/json',
-            },
-            method: 'PUT',
+            ...followFetchOptions,
          });
          const data = await response.json();
 
@@ -56,6 +62,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
             return setServerError(data.error);
          }
          console.log(data)
+         setLoading(false);
          setFollowing(true);
       } catch (err) {
          if (err.message) {
@@ -66,10 +73,32 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
       }
    };
 
+   const unfollowHandler = async () => {
+      try {
+         setLoading(true);
+         const response = await fetch('/api/users/user/unfollow', {
+            body: JSON.stringify({
+               unFollowId: params.userId,
+               userId: loggedInUser._id,
+            }),
+            ...followFetchOptions,
+         });
+         const data = await response.json();
 
-   const unfollowHandler = () => {
-
-   }
+         if (data.error) {
+            return setServerError(data.error);
+         }
+         console.log(data)
+         setLoading(false);
+         setFollowing(false);
+      } catch (err) {
+         if (err.message) {
+            setServerError(err.message);
+         } else {
+            setServerError(JSON.stringify(err));
+         }
+      }
+   };
 
    const classes = C.useStyles({});
 
@@ -144,6 +173,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
                                           variant="outlined"
                                           size="small"
                                           onClick={followHandler}
+                                          disabled={isLoading}
                                        >
                                           Follow
                                        </Button>
@@ -152,10 +182,17 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
                                  : (
                                     <Typography
                                        variant="body2"
-                                       className={`${classes.unfollowButton} ${classes.pointerCursor}`}
+                                       className={classes.pointerCursor}
                                        onClick={unfollowHandler}
                                     >
-                                       unfollow
+                                       <Button
+                                          variant="outlined"
+                                          size="small"
+                                          onClick={followHandler}
+                                          disabled={isLoading}
+                                       >
+                                          Unfollow
+                                       </Button>
                                     </Typography>
                                  )}
                            </Grid>

@@ -129,7 +129,6 @@ router.put('/:userId', userAuthHelpers_1.isUserSignIn, (req, res, next) => {
     form.keepExtensions = true;
     form.maxFileSize = 50 * 1024 * 1024;
     form.parse(req, (err, fields, files) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log('2', err);
         if (err) {
             return res.status(400).json({
                 error: err,
@@ -154,7 +153,6 @@ router.put('/:userId', userAuthHelpers_1.isUserSignIn, (req, res, next) => {
             res.status(200).json(Object.assign({}, restData));
         }
         catch (err) {
-            console.log('3', err);
             return res.status(400).json({
                 error: err,
             });

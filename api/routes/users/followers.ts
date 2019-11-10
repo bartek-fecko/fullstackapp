@@ -42,11 +42,9 @@ const setFollower = async (req: Request, res: Response) => {
          .populate('followers', '_id name')
          .exec();
 
-      const followerResult = { ...result };
-      delete followerResult.photo;
-      delete followerResult.salt;
-      delete followerResult.passwordHash;
-      return res.status({ ...followerResult });
+      const followerResult = { ...result._doc };
+      const { photo, salt, passwordHash, ...rest } = followerResult;
+      return res.status({ ...rest });
 
    } catch (err) {
       res.status(400).json({
@@ -92,10 +90,9 @@ const deleteFollower = async (req: Request, res: Response) => {
          .populate('followers', '_id name')
          .exec();
 
-      const followerResult = { ...result };
-      delete followerResult.salt;
-      delete followerResult.passwordHash;
-      return res.status(200).json({ ...followerResult });
+      const followerResult = { ...result._doc };
+      const { photo, salt, passwordHash, ...rest } = followerResult;
+      return res.status(200).json({ ...rest });
 
    } catch (err) {
       res.status(400).json({

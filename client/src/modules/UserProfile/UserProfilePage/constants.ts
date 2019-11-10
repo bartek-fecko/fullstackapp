@@ -19,9 +19,6 @@ export const useStyles = makeStyles((theme: Theme) => ({
    pointerCursor: {
       cursor: 'pointer',
    },
-   unfollowButton: {
-      marginLeft: theme.spacing(1),
-   },
    userInfo: {
       marginLeft: theme.spacing(4),
    },

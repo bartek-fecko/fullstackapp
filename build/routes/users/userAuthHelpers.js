@@ -25,7 +25,6 @@ exports.userById = ((req, res, next, id) => {
             });
         }
         if (!user) {
-            console.log('1', user);
             return res.status(400).json({
                 error: C.UserAuthErros.UserDoesNotExists,
             });
@@ -37,12 +36,4 @@ exports.userById = ((req, res, next, id) => {
 exports.isUserSignIn = express_jwt_1.default({
     secret: process.env.JWT_SECRET,
     useProperty: 'auth',
-});
-exports.isUserAuthorized = ((req, res, next) => {
-    if (!(req.profile && req.auth && req.profile._id == req.auth._id)) {
-        return res.status(403).json({
-            error: htttpStatuses_1.htttpErrors.error403,
-        });
-    }
-    next();
 });

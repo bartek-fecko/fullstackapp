@@ -17,8 +17,7 @@ export const userById = ((
             error: htttpErrors.error500,
          });
       }
-
-      if (!user) {console.log('1', user)
+      if (!user) {
          return res.status(400).json({
             error: C.UserAuthErros.UserDoesNotExists,
          });
@@ -31,15 +30,4 @@ export const userById = ((
 export const isUserSignIn = expressJwt({
    secret: process.env.JWT_SECRET,
    useProperty: 'auth',
-});
-
-export const isUserAuthorized = ((req: C.IsUserAuthorizedRequest, res: Response, next: NextFunction) => {
-   if (
-      !(req.profile && req.auth && req.profile._id == req.auth._id)
-   ) {
-      return res.status(403).json({
-         error: htttpErrors.error403,
-      });
-   }
-   next();
 });
