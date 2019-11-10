@@ -55,7 +55,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
          if (data.error) {
             return setServerError(data.error);
          }
-
+         console.log(data)
          setFollowing(true);
       } catch (err) {
          if (err.message) {
@@ -76,7 +76,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
    const avatarSrc = hasPhoto ? `/api/users/photo/${_id}` : null;
 
    return (
-      <>{console.log('render')}
+      <>
          {!params.userId && <Redirect to="/" />}
          <div className={classes.root}>
             <Paper className={classes.paper}>
