@@ -7,8 +7,7 @@ export const useStyles = makeStyles((theme: Theme) =>
          margin: `${theme.spacing(1)}px 0`,
       },
       secendaryText: {
-         display: 'inline',
-         marginTop: '20px',
+         display: 'block',
       },
       paper: {
          margin: `${theme.spacing(1) / 2}px auto`,
@@ -17,7 +16,6 @@ export const useStyles = makeStyles((theme: Theme) =>
          minWidth: '322px',
       },
       userElementRoot: {
-         overflow: 'hidden',
          width: '322px',
       },
       root: {
