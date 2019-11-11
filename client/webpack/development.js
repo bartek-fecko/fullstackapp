@@ -7,6 +7,7 @@ module.exports = merge(common, {
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     hot: true,
+    historyApiFallback: true,
     proxy: {
       '/api': {
         target: `http://[::1]:1648`,

@@ -1,3 +1,4 @@
+// tslint:disable: object-literal-sort-keys
 import express, { Application, Response } from 'express';
 const morgan = require('morgan');
 const dotenv = require('dotenv');
@@ -45,7 +46,7 @@ const server = app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
-server.timeout = 1000 * 10;
+server.timeout = 1000 * 15;
 if (process.env.NODE_ENV === 'development') {
   server.timeout = 1000 * 20;
 }

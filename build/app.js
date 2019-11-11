@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// tslint:disable: object-literal-sort-keys
 const express_1 = __importDefault(require("express"));
 const morgan = require('morgan');
 const dotenv = require('dotenv');
@@ -42,7 +43,7 @@ const server = app.listen(port, () => {
     // tslint:disable-next-line: no-console
     console.log(`listening on port ${port}`);
 });
-server.timeout = 1000 * 10;
+server.timeout = 1000 * 15;
 if (process.env.NODE_ENV === 'development') {
     server.timeout = 1000 * 20;
 }

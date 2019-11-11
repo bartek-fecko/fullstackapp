@@ -40,10 +40,10 @@ const setFollower = async (req: Request, res: Response) => {
       )
          .populate('following', '_id name')
          .populate('followers', '_id name')
-         .exec();
 
       const followerResult = { ...result._doc };
       const { photo, salt, passwordHash, ...rest } = followerResult;
+
       return res.status({ ...rest });
 
    } catch (err) {
@@ -92,6 +92,7 @@ const deleteFollower = async (req: Request, res: Response) => {
 
       const followerResult = { ...result._doc };
       const { photo, salt, passwordHash, ...rest } = followerResult;
+
       return res.status(200).json({ ...rest });
 
    } catch (err) {

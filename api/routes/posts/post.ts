@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import fileHandler from 'formidable';
 import fs from 'fs';
 import { htttpErrors } from '../../config/constants/htttpStatuses';
@@ -34,19 +34,21 @@ router.post(
       form.parse(req, async (err: Error, fields, files) => {
          if (err) {
             return res.status(400).json({
-               error: C.PostErrors.fileNotUploaded,
+               error: err,
             });
          }
-         const post = new Post(fields);
-         post.postedBy = req.profile;
-         if (files.photo) {
-            post.photo.data = fs.readFileSync(files.photo.path);
-            post.photo.contentType = files.photo.type;
-         }
          try {
+            const post = new Post(fields);
+            post.postedBy = req.profile;
+            if (post && files.photo) {
+               post.photo.data = fs.readFileSync(files.photo.path);
+               post.photo.contentType = files.photo.type;
+            }
+
             const result = await post.save();
+            const { photo, ...restData } = result._doc;
             res.status(200).json({
-               post: result,
+               post: restData,
             });
          } catch (err) {
             return res.status(500).json({
@@ -116,6 +118,25 @@ router.put(
             error: err,
          });
       }
+   },
+);
+
+router.get(
+   '/photo/:postId',
+   async (req: C.IsPostAuthorizedRequest, res: Response, next: NextFunction) => {
+      const post = req.profile;
+
+      try {
+         if (post && post.photo.data) {
+            res.set('Content-Type', post.photo.contentType);
+            return res.send(post.photo.data);
+         }
+      } catch (err) {
+         return res.status(400).json({
+            error: err,
+         });
+      }
+      next();
    },
 );
 

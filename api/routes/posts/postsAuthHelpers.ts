@@ -3,8 +3,10 @@ import { htttpErrors } from '../../config/constants/htttpStatuses';
 import Post from '../../db/models/post/post';
 import * as C from './constants';
 
-export const postById = (req: C.PostByIdRequest, res: Response, next: NextFunction, id) => {
-   Post.find()
+export const postById = (
+   req: C.PostByIdRequest, res: Response, next: NextFunction, id: string,
+) => {
+   Post.findById(id)
       .populate('postedBy', '_id name')
       .exec((err: Error, post) => {
          if (err || !post) {
@@ -12,7 +14,7 @@ export const postById = (req: C.PostByIdRequest, res: Response, next: NextFuncti
                error: err,
             });
          }
-         req.post = post;
+         req.post = post._doc;
          res.status(200).json({ post });
       });
 };

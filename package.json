@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "dev:front": "cd client && npm run dev",
-    "dev:server": "ts-node-dev --respawn --transpileOnly ./api/app.ts",
+    "dev:server": "ts-node-dev --respawn --transpileOnly ./api/app.ts --ignore './client/'",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:front\"",
     "tsc": "tsc",
     "clean": "rimraf ./build",
@@ -28,6 +28,7 @@
     "final-form": "^4.18.5",
     "formidable": "^1.2.1",
     "http-errors": "~1.6.3",
+    "http-proxy-middleware": "^0.20.0",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.7",

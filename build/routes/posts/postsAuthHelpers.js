@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const htttpStatuses_1 = require("../../config/constants/htttpStatuses");
 const post_1 = __importDefault(require("../../db/models/post/post"));
 exports.postById = (req, res, next, id) => {
-    post_1.default.find()
+    post_1.default.findById(id)
         .populate('postedBy', '_id name')
         .exec((err, post) => {
         if (err || !post) {
@@ -14,7 +14,7 @@ exports.postById = (req, res, next, id) => {
                 error: err,
             });
         }
-        req.post = post;
+        req.post = post._doc;
         res.status(200).json({ post });
     });
 };

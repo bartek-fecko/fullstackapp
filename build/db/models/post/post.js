@@ -25,6 +25,9 @@ const postSchema = new mongoose.Schema({
         ref: 'User',
         type: mongoose.Schema.ObjectId,
     },
+    updated: {
+        type: Date,
+    },
     title: {
         required: true,
         type: String,

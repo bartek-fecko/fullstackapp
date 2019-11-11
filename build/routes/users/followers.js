@@ -56,8 +56,7 @@ const setFollower = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             },
         }, { new: true })
             .populate('following', '_id name')
-            .populate('followers', '_id name')
-            .exec();
+            .populate('followers', '_id name');
         const followerResult = Object.assign({}, result._doc);
         const { photo, salt, passwordHash } = followerResult, rest = __rest(followerResult, ["photo", "salt", "passwordHash"]);
         return res.status(Object.assign({}, rest));

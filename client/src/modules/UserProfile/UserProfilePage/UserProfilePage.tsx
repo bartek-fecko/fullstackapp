@@ -49,7 +49,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
    const followHandler = async () => {
       try {
          setLoading(true);
-         const response = await fetch('/api/users/user/follow', {
+         const response = await fetch(`http://localhost:${process.env.PORT}/api/users/user/follow`, {
             body: JSON.stringify({
                followId: params.userId,
                userId: loggedInUser._id,
@@ -61,7 +61,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
          if (data.error) {
             return setServerError(data.error);
          }
-         console.log(data)
+
          setLoading(false);
          setFollowing(true);
       } catch (err) {
@@ -88,7 +88,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
          if (data.error) {
             return setServerError(data.error);
          }
-         console.log(data)
+
          setLoading(false);
          setFollowing(false);
       } catch (err) {
@@ -183,12 +183,11 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
                                     <Typography
                                        variant="body2"
                                        className={classes.pointerCursor}
-                                       onClick={unfollowHandler}
                                     >
                                        <Button
                                           variant="outlined"
                                           size="small"
-                                          onClick={followHandler}
+                                          onClick={unfollowHandler}
                                           disabled={isLoading}
                                        >
                                           Unfollow

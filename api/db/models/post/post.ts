@@ -17,6 +17,9 @@ const postSchema = new mongoose.Schema({
       ref: 'User',
       type: (mongoose.Schema as any).ObjectId,
    },
+   updated: {
+      type: Date,
+   },
    title: {
       required: true,
       type: String,
