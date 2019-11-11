@@ -15,6 +15,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isArray } from 'util';
 import * as C from './constants';
+import PostsSkeleton from './PostsSkeleton';
 
 const Posts: React.FC = () => {
    const dispatch = useDispatch();
@@ -30,11 +31,10 @@ const Posts: React.FC = () => {
 
    return (
       <>
-         {error ? <ErrorChip />
-            : isLoading ? 'loading...'
-               :
-               <Grid container spacing={4}>
-                  {isArray(posts) && posts.map(({
+         <Grid container spacing={4}>
+            {error ? <ErrorChip />
+               : isLoading ? <PostsSkeleton />
+                  : isArray(posts) && posts.map(({
                      _id, title, body, hasPhoto,
                   }) => (
                         <Grid item key={_id} xs={12} sm={6} md={4}>
@@ -59,9 +59,9 @@ const Posts: React.FC = () => {
                               </CardActions>
                            </Card>
                         </Grid>
-                     ))}
-               </Grid>
-         }
+                     ))
+            }
+         </Grid>
       </>
    );
 };
