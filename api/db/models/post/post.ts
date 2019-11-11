@@ -1,4 +1,6 @@
+// tslint:disable: object-literal-sort-keys
 import * as mongoose from 'mongoose';
+const { ObjectId } = mongoose.Schema;
 
 const postSchema = new mongoose.Schema({
    body: {
@@ -13,9 +15,13 @@ const postSchema = new mongoose.Schema({
       contentType: String,
       data: Buffer,
    },
+   hasPhoto: {
+      contentType: Boolean,
+      deafult: false,
+   },
    postedBy: {
       ref: 'User',
-      type: (mongoose.Schema as any).ObjectId,
+      type: ObjectId,
    },
    updated: {
       type: Date,

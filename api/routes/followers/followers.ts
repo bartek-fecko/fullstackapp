@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import User from '../../db/models/user/user';
-import { isUserSignIn } from './userAuthHelpers';
+import { isUserSignIn } from '../users/userAuthHelpers';
 require('dotenv').config();
 
 const router = express.Router();

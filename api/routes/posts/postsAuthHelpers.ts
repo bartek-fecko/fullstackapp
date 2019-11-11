@@ -15,7 +15,7 @@ export const postById = (
             });
          }
          req.post = post._doc;
-         res.status(200).json({ post });
+         next();
       });
 };
 

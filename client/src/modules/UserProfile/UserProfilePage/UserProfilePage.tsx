@@ -49,7 +49,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
    const followHandler = async () => {
       try {
          setLoading(true);
-         const response = await fetch(`http://localhost:${process.env.PORT}/api/users/user/follow`, {
+         const response = await fetch(`http://localhost:${process.env.PORT}/api/follow/user/follow`, {
             body: JSON.stringify({
                followId: params.userId,
                userId: loggedInUser._id,
@@ -76,7 +76,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
    const unfollowHandler = async () => {
       try {
          setLoading(true);
-         const response = await fetch('/api/users/user/unfollow', {
+         const response = await fetch('/api/follow/user/unfollow', {
             body: JSON.stringify({
                unFollowId: params.userId,
                userId: loggedInUser._id,
@@ -122,9 +122,11 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, loggedInUserPof
                            {name.charAt(0).toUpperCase()}
                         </Avatar>
                      </ListItemAvatar>
-                     <ListItemAvatar>
-                        {!hasPhoto && <Avatar style={{ background: avatarColor }} />}
-                     </ListItemAvatar>
+                     {!hasPhoto && (
+                        <ListItemAvatar >
+                           <Avatar style={{ background: avatarColor }} />
+                        </ListItemAvatar>
+                     )}
                   </Grid>
                   <Grid item xs={12} sm container>
                      <Grid

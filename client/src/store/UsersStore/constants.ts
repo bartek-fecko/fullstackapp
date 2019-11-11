@@ -1,8 +1,8 @@
 export enum UsersTypes {
-   UsersRequestData = 'Articles/GET',
-   UsersRequestSucess = 'Articles/Sucess',
-   UsersLoading = 'Articles/Loading',
-   UsersError = 'Articles/Error',
+   UsersRequestData = 'Users/GET',
+   UsersRequestSucess = 'Users/Sucess',
+   UsersLoading = 'Users/Loading',
+   UsersError = 'Users/Error',
 }
 
 export type UsersActions = {

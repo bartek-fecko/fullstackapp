@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import fileHandler from 'formidable';
 import fs from 'fs';
 import { htttpErrors } from '../../config/constants/htttpStatuses';
@@ -6,7 +6,8 @@ import Post from '../../db/models/post/post';
 import { checkErrors, postRequestValidator } from '../../utils/validation/post/postRequestValidator';
 import { protectRoutes } from '../../utils/validation/protectedRoutes';
 import { isUserSignIn } from '../users/userAuthHelpers';
-import { userById } from './../users/userAuthHelpers';
+import { IUser } from '../../db/models/user/constants';
+import { userById } from '../users/userAuthHelpers';
 import * as C from './constants';
 import { isUserAuthorizedForPost, postById } from './postsAuthHelpers';
 
@@ -14,8 +15,10 @@ const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
    try {
-      const posts = await Post.find().populate('postedBy', '_id name');
-      res.status(200).json({ posts });
+      const posts = await Post.find()
+         // .populate('postedBy', '_id name')
+         .select('_id title body created ');
+      res.status(200).json(posts);
    } catch (err) {
       return res.status(500).json({
          error: htttpErrors.error500,
@@ -39,14 +42,15 @@ router.post(
          }
          try {
             const post = new Post(fields);
-            post.postedBy = req.profile;
+            const { photo: userPhoto, passwordHash, salt, ...restUser } = req.profile as IUser;
+            post.postedBy = restUser;
             if (post && files.photo) {
                post.photo.data = fs.readFileSync(files.photo.path);
                post.photo.contentType = files.photo.type;
             }
 
             const result = await post.save();
-            const { photo, ...restData } = result._doc;
+            const { photo: postPhoto, ...restData } = result._doc;
             res.status(200).json({
                post: restData,
             });
@@ -124,7 +128,7 @@ router.put(
 router.get(
    '/photo/:postId',
    async (req: C.IsPostAuthorizedRequest, res: Response, next: NextFunction) => {
-      const post = req.profile;
+      const post = req.post;
 
       try {
          if (post && post.photo.data) {

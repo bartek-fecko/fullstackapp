@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './rootReducer';
 
+import postsSaga from '#/store/PostsStore/sagas';
 import usersSaga from '#/store/UsersStore/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -18,6 +19,7 @@ function configureStore() {
 
 const store = configureStore();
 
+sagaMiddleware.run(postsSaga);
 sagaMiddleware.run(usersSaga);
 
 export default store;
