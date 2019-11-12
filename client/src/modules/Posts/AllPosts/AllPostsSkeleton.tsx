@@ -1,4 +1,4 @@
-import { CardActions, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -17,16 +17,16 @@ const PostsSkeleton: React.FC = () => {
                   <Card className={classes.card}>
                      <Skeleton variant="rect" className={classes.cardMedia} />
                      <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom >
-                           <Skeleton variant="rect" height={6}/>
+                        <Typography gutterBottom component="div">
+                           <Skeleton variant="rect" height={6} />
                         </Typography>
-                        <Typography gutterBottom >
-                           <Skeleton variant="rect" height={6}/>
+                        <Typography gutterBottom component="div">
+                           <Skeleton variant="rect" height={6} />
                         </Typography>
-                        <Typography gutterBottom >
-                           <Skeleton variant="rect" height={6}/>
+                        <Typography gutterBottom component="div">
+                           <Skeleton variant="rect" height={6} />
                         </Typography>
-                        <Typography gutterBottom>
+                        <Typography gutterBottom component="div">
                            <Skeleton variant="rect" width="15%" height={12} />
                         </Typography>
                      </CardContent>

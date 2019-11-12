@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import Posts from '../Posts/Posts';
+import AllPosts from '../Posts/AllPosts/AllPosts';
 import * as C from './constants';
 
 const Home: React.FC = () => {
@@ -53,7 +53,7 @@ const Home: React.FC = () => {
                </Container>
             </div>
             <Container className={classes.cardGrid} maxWidth="md">
-               <Posts />
+               <AllPosts />
             </Container>
          </main>
       </>

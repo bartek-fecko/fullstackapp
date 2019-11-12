@@ -15,7 +15,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isArray } from 'util';
 import * as C from './constants';
-import PostsSkeleton from './PostsSkeleton';
+import AllPostsSkeleton from './AllPostsSkeleton';
 
 const Posts: React.FC = () => {
    const dispatch = useDispatch();
@@ -32,18 +32,28 @@ const Posts: React.FC = () => {
    return (
       <>
          <Grid container spacing={4}>
-            {error ? <ErrorChip />
-               : isLoading ? <PostsSkeleton />
+            {error
+               ? <ErrorChip />
+               : isLoading ? <AllPostsSkeleton />
                   : isArray(posts) && posts.map(({
                      _id, title, body, hasPhoto,
                   }) => (
                         <Grid item key={_id} xs={12} sm={6} md={4}>
                            <Card className={classes.card}>
-                              <CardMedia
-                                 className={classes.cardMedia}
-                                 image={`/api/posts/photo/${_id}`}
-                                 title="Image title"
-                              />
+                              {
+                                 hasPhoto
+                                    ? <CardMedia
+                                       className={classes.cardMedia}
+                                       image={`/api/posts/photo/${_id}`}
+                                       title={title}
+                                    />
+                                    : <CardMedia
+                                       className={classes.cardMedia}
+                                       title={title}
+                                       image="image"
+                                       style={{ backgroundColor: '#eee' }}
+                                    />
+                              }
                               <CardContent className={classes.cardContent}>
                                  <Typography gutterBottom variant="h5" component="h2">
                                     {title}
@@ -53,7 +63,12 @@ const Posts: React.FC = () => {
                                  </Typography>
                               </CardContent>
                               <CardActions className={classes.fadeButtonWrapper}>
-                                 <Button size="small" color="primary">
+                                 <Button
+                                    size="small"
+                                    color="primary"
+                                    component={WithRouterLink}
+                                    to={`/posts/${_id}`}
+                                 >
                                     View
                                  </Button>
                               </CardActions>

@@ -13,6 +13,8 @@ export interface UserProfileData {
    hasPhoto: boolean;
 }
 
+export type ServerResponse = UserProfileData & { error: string };
+
 export const useStyles = makeStyles({
    root: {
       minHeight: `calc(100vh - ${65}px)`,

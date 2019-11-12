@@ -11,7 +11,7 @@ export const postById = (
       .exec((err: Error, post) => {
          if (err || !post) {
             return res.status(400).json({
-               error: err,
+               error: C.PostErrors.postNotFound,
             });
          }
          req.post = post._doc;

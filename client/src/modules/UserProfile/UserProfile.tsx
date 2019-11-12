@@ -41,7 +41,7 @@ const UserProfile = () => {
                Authorization: `Bearer ${JSON.parse(loggedInUserAndtoken).token}`,
             },
          });
-         const data = await response.json();
+         const data: C.ServerResponse = await response.json();
 
          if (data.error) {
             return setServerError(data.error);
