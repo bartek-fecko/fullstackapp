@@ -7,22 +7,27 @@ Preview: https://herokusadfdsf.herokuapp.com/
 features:
 register + login system with jwt: 
 register: 
-   - checking for correct values
-   - checking for email exists
+   - checking for correct values - client/backend
+   - dynamic checking for email exists 
 
 login:
-   - checking email and password match
-   - displays errors, and sucessful messages
+   - dynamic checking email and password match
+   - displays errors, and sucessful messages - client/backend
    - logout system
+
+post system:
+   - adding and updating, deleting posts
 
 user sytem:
    - adding and updating user profile
-   - image or user first letter as placeholder if img not 
-   - skeleton loader when waiting for users
+   - image or user first letter as placeholder if img not added
    - uploading and changing user image
    - delete user profile
 
-Displaying errors, and sucessful messages for all informations.
+
+ *. skeleton loader for posts and users added
+ *. authorization for all routes
+
 
 project uses final-form, material-ui, express, ts, react, redux, saga
 
@@ -35,8 +40,9 @@ login: bartlomiej.fecko@gmail.com password: bartek
 project uses enviroment variables:
 `MONGO_DB_URI(mongodb database adress), PORT(port to listen), JWT_SECRET(any secret key)`
 that mus be supplied when you want to use app.
+in dev creating .env file, and with command line on the server.
+in development it's recomended to use enviroment `HTTPS=false` variable.
 
 For some reason heroku can't build backend server(for now) so in order to publish app, it's needed to build it locally, using  `build:local` script before you push it to heroku.
 
 to run development server use `dev` script.
-
