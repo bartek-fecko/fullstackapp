@@ -7,7 +7,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// tslint:disable: object-literal-sort-keys
 const mongoose = __importStar(require("mongoose"));
+const { ObjectId } = mongoose.Schema;
 const postSchema = new mongoose.Schema({
     body: {
         required: true,
@@ -22,12 +24,13 @@ const postSchema = new mongoose.Schema({
         data: Buffer,
     },
     hasPhoto: {
-        contentType: Boolean,
+        type: Boolean,
         deafult: false,
+        required: true,
     },
     postedBy: {
         ref: 'User',
-        type: mongoose.Schema.ObjectId,
+        type: ObjectId,
     },
     updated: {
         type: Date,

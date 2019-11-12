@@ -1,10 +1,10 @@
 import Home from '#/modules/Home/Home';
 import NavBar from '#/modules/NavBar/NavBar';
+import SinglePost from '#/modules/Posts/SinglePost/SinglePost';
 import SignIn from '#/modules/SignIn/SignIn';
 import SignUp from '#/modules/SignUp/SignUp';
 import CreatePost from '#/modules/UserPosts/Create/CreatePost';
 import UserProfile from '#/modules/UserProfile/UserProfile';
-import SinglePost from '#/modules/Posts/SinglePost/SinglePost';
 import Users from '#/modules/Users/Users';
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';

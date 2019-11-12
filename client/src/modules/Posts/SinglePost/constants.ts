@@ -30,3 +30,5 @@ export const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export type ServerResponse = Post & { error: string };
+
+export const notAuthorizedError = 'To see post you must sign in.';

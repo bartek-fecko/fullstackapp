@@ -15,6 +15,8 @@ export type ServerResponse = PostCreateData & { error: string } & { message: str
 
 export const requiedFields = ['title', 'body'];
 
+export const notAuthorizedError = 'To create post you must sign in.';
+
 export enum MaxLength {
    Body = 800,
    Title = 150,

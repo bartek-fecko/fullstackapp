@@ -27,6 +27,7 @@ export interface Post {
    body: string;
    photo?: string;
    hasPhoto?: string;
+   created: string;
    postedBy: Partial<User>;
 }
 

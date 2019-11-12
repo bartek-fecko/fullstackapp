@@ -17,7 +17,7 @@ router.get('/', async (req: Request, res: Response) => {
    try {
       const posts = await Post.find()
          .populate('postedBy', '_id name')
-         .select('_id title body created ');
+         .select('_id title body created hasPhoto');
       res.status(200).json(posts);
    } catch (err) {
       return res.status(500).json({

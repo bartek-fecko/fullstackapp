@@ -6,16 +6,19 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import AllPosts from '../Posts/AllPosts/AllPosts';
 import * as C from './constants';
+import ErrorChip from '#/components/ErrorChip/ErrorChip';
 
 const Home: React.FC = () => {
    const user = useSelector((state: AppState) => state.userWithToken.loggedUser.user);
-
+   const location = useLocation();
    const classes = C.useStyles({});
 
    return (
       <>
+         {location.state && location.state.error && <ErrorChip text={location.state.error} />}
          <main>
             <div className={classes.heroContent}>
                <Container maxWidth="sm">
@@ -28,26 +31,40 @@ const Home: React.FC = () => {
                   </Typography>
                   <div className={classes.heroButtons}>
                      <Grid container spacing={2} justify="center">
-                        <Grid item>
-                           <Button
-                              component={WithRouterLink}
-                              to="/posts/create"
-                              variant="contained"
-                              color="primary"
-                           >
-                              Create your own post
-                           </Button>
-                        </Grid>
-                        <Grid item>
-                           <Button
-                              variant="outlined"
-                              color="primary"
-                              component={WithRouterLink}
-                              to={`/users/${user._id}`}
-                           >
-                              Check your profile
-                           </Button>
-                        </Grid>
+                        {user
+                           ? <>
+                              <Grid item>
+                                 <Button
+                                    component={WithRouterLink}
+                                    to="/posts/create"
+                                    variant="contained"
+                                    color="primary"
+                                 >
+                                    Create your own post
+                                 </Button>
+                              </Grid>
+                              <Grid item>
+                                 <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    component={WithRouterLink}
+                                    to={`/users/${user._id}`}
+                                 >
+                                    Check your profile
+                                    </Button>
+                              </Grid>
+                           </>
+                           : <Grid item>
+                              <Button
+                                 variant="outlined"
+                                 color="primary"
+                                 component={WithRouterLink}
+                                 to={'/signin'}
+                              >
+                                 Create your posts. Sign in
+                              </Button>
+                           </Grid>
+                        }
                      </Grid>
                   </div>
                </Container>

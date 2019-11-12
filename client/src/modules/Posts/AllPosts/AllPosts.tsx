@@ -14,8 +14,8 @@ import {
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isArray } from 'util';
-import * as C from './constants';
 import AllPostsSkeleton from './AllPostsSkeleton';
+import * as C from './constants';
 
 const Posts: React.FC = () => {
    const dispatch = useDispatch();

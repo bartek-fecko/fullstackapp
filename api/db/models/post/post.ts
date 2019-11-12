@@ -16,8 +16,9 @@ const postSchema = new mongoose.Schema({
       data: Buffer,
    },
    hasPhoto: {
-      contentType: Boolean,
+      type: Boolean,
       deafult: false,
+      required: true,
    },
    postedBy: {
       ref: 'User',

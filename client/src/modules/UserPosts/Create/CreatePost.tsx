@@ -5,13 +5,14 @@ import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import { TextField } from 'final-form-material-ui';
 import * as React from 'react';
 import { Field, Form } from 'react-final-form';
+import { Redirect } from 'react-router';
 import useLocalStorage from 'react-use-localstorage';
 import * as C from './constants';
 import { validate } from './validate';
 
 const CreatePost: React.FC = () => {
    const [loggedInUserAndtoken] = useLocalStorage('jwt-token');
-   const userAndToken = JSON.parse(loggedInUserAndtoken);
+   const userAndToken = loggedInUserAndtoken && JSON.parse(loggedInUserAndtoken);
    const [successfullyCreated, setSuccessfullyCreated] = React.useState(false);
    const [serverError, setServerError] = React.useState<string | boolean>(false);
    const [ImageFileInput, imageFile] = useFileInput({ backgroundColor: 'rgba(0,0,0,0) !important' });
@@ -56,6 +57,14 @@ const CreatePost: React.FC = () => {
 
    return (
       <>
+         {!loggedInUserAndtoken && (
+            <Redirect to={{
+               pathname: '/',
+               state: {
+                  error: C.notAuthorizedError,
+               },
+            }} />
+         )}
          <Form
             onSubmit={onSubmit}
             validate={validate}

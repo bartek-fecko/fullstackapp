@@ -1,16 +1,13 @@
-import { CardMedia, Container, CssBaseline, Typography, Chip, Link } from '@material-ui/core';
-import * as React from 'react';
-import * as C from './constants';
-import { useSelector } from 'react-redux';
-import AppState from '#/config/appState';
-import useLocalStorage from 'react-use-localstorage';
-import { useParams } from 'react-router';
-import { Post } from '#/store/PostsStore/constants';
 import WithRouterLink from '#/components/WithRouterLink/WithRouterLink';
+import { Post } from '#/store/PostsStore/constants';
+import { CardMedia, Chip, Container, CssBaseline, Link, Typography } from '@material-ui/core';
+import * as React from 'react';
+import { Redirect, useParams } from 'react-router';
+import useLocalStorage from 'react-use-localstorage';
+import * as C from './constants';
 import SinglePostSkeleton from './SinglePostSkeleton';
 
 const SinglePost: React.FC = () => {
-   const userLoogedIn = useSelector((state: AppState) => state.userWithToken.loggedUser.user);
    const [loggedInUserAndtoken] = useLocalStorage('jwt-token');
    const [serverError, setServerError] = React.useState<string | boolean>(false);
    const [post, setPost] = React.useState<Post>();
@@ -49,6 +46,14 @@ const SinglePost: React.FC = () => {
 
    return (
       <>
+         {!loggedInUserAndtoken && (
+            <Redirect to={{
+               pathname: '/',
+               state: {
+                  error: C.notAuthorizedError,
+               },
+            }} />
+         )}
          <CssBaseline />
          {serverError
             ? <Chip label={serverError} color="secondary" />
@@ -79,6 +84,9 @@ const SinglePost: React.FC = () => {
                         className={classes.title}
                      >
                         {post.title}
+                     </Typography>
+                     <Typography variant="body2" color="textSecondary">
+                        created {new Date(post.created).toDateString()}
                      </Typography>
                      <Typography>
                         {post.body}

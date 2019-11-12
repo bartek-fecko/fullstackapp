@@ -46,6 +46,15 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 }));
+router.get('/:postId', userAuthHelpers_1.isUserSignIn, (req, res) => {
+    if (req.post) {
+        const _a = req.post, { photo } = _a, restData = __rest(_a, ["photo"]);
+        return res.status(200).json(Object.assign({}, restData));
+    }
+    return res.status(500).json({
+        error: htttpStatuses_1.htttpErrors.error500,
+    });
+});
 router.post('/create/:userId', userAuthHelpers_1.isUserSignIn, 
 // postRequestValidator,
 // checkErrors,
@@ -65,6 +74,7 @@ router.post('/create/:userId', userAuthHelpers_1.isUserSignIn,
             if (post && files.photo) {
                 post.photo.data = fs_1.default.readFileSync(files.photo.path);
                 post.photo.contentType = files.photo.type;
+                post.hasPhoto = true;
             }
             const result = yield post.save();
             const _b = result._doc, { photo: postPhoto } = _b, restData = __rest(_b, ["photo"]);
@@ -125,7 +135,7 @@ router.put('/:userId', userAuthHelpers_1.isUserSignIn, postsAuthHelpers_1.isUser
     }
 }));
 router.get('/photo/:postId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const post = req.profile;
+    const post = req.post;
     try {
         if (post && post.photo.data) {
             res.set('Content-Type', post.photo.contentType);
