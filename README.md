@@ -2,7 +2,7 @@
 ![Images](https://github.com/bartek-fecko/fullstackapp/blob/master/fulstackapp.png)
 A fullstack app. It offers to send posts, edit them, create and manage profile. Sending messages with other users. Project is built with webpack express, and react. 
 
-Preview: https://herokusadfdsf.herokuapp.com/
+Preview: https://fullstackappr.herokuapp.com/
 
 features:
 register + login system with jwt: 
